@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e6e9d7" />
+  <title>원데이 퀘스트 — 오늘, 작지만 멋진 모험</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Gowun+Dodum&family=Gowun+Batang:wght@400;700&display=swap');
+    :root { --paper:#f7f5ef; --ink:#212820; --muted:#85897f; --line:#e8e6df; --green:#d9ee82; --deep:#26372b; --orange:#f2835d; --white:#fffefa; }
+    * { box-sizing:border-box }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:'DM Sans','Gowun Dodum',sans-serif; min-height:100vh; }
+    button { font:inherit; cursor:pointer; }
+    .shell { max-width:1160px; margin:auto; padding:0 54px 54px; }
+    header { height:88px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; font-size:17px; font-weight:800; letter-spacing:-.7px; }
+    .brand-mark { display:grid; place-items:center; width:34px;height:34px;background:var(--green);border-radius:50%;font-size:17px; }
+    .header-right { display:flex; align-items:center; gap:22px; color:var(--muted); font-size:12px; }
+    .profile { width:36px;height:36px;border-radius:50%;background:#e6e1d5;display:grid;place-items:center;font-size:17px; }
+    main { display:grid;grid-template-columns:minmax(0,1.52fr) minmax(280px,.78fr);gap:64px;padding-top:53px; }
+    .eyebrow { color:#757c6f;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase; }
+    h1 { font-family:'Gowun Batang',serif;font-size:43px;line-height:1.35;letter-spacing:-2px;margin:15px 0 8px;font-weight:700; }
+    h1 em { font-style:normal;color:#758b38; }
+    .sub { color:#898c83;font-size:14px;margin:0 0 30px; }
+    .quest-card { position:relative;overflow:hidden;min-height:323px;padding:29px 32px 30px;background:var(--deep);color:#fff;border-radius:8px;display:flex;flex-direction:column; }
+    .quest-card:after { content:'✳';position:absolute;font-size:250px;line-height:1;color:#35483a;right:-15px;top:34px;transform:rotate(-14deg); }
+    .quest-top,.quest-body,.quest-bottom { position:relative;z-index:1; }
+    .quest-top { display:flex;justify-content:space-between;align-items:center; }
+    .tag { border:1px solid #778476;border-radius:30px;padding:7px 12px;color:#d6dfd5;font-size:11px;letter-spacing:.4px; }
+    .refresh { border:0;background:transparent;color:#c8d0c7;font-size:12px;padding:7px 0; }
+    .refresh:hover {color:white}
+    .quest-body {margin:auto 0 23px;padding-top:29px;max-width:430px}
+    .quest-body h2 {font-family:'Gowun Batang',serif;font-size:29px;line-height:1.55;letter-spacing:-.8px;margin:0 0 10px;font-weight:400;}
+    .quest-body p { color:#bdc7bc;font-size:12px;line-height:1.7;margin:0; }
+    .quest-bottom { display:flex;justify-content:space-between;align-items:center;border-top:1px solid #455448;padding-top:18px;font-size:11px;color:#c1c9bf; }
+    .quest-bottom strong {color:#e4edda;font-size:12px;font-weight:600}
+    .actions {display:flex;align-items:center;gap:18px;margin-top:18px}
+    .complete {border:0;border-radius:3px;background:var(--green);color:#243323;padding:14px 23px;font-weight:700;font-size:13px;transition:.2s}
+    .complete:hover {background:#e6f6a6;transform:translateY(-1px)}
+    .complete.done {background:#e8e8de;color:#66705f;cursor:default}
+    .complete.done {display:inline-flex;align-items:center;gap:7px}
+    .complete.done svg {width:23px;height:27px;filter:drop-shadow(0 0 5px rgba(255,255,255,.9))}
+    .quest-progress {font-size:11px;color:#75856a;letter-spacing:.5px}
+    .next-mission {position:fixed;right:24px;bottom:22px;z-index:5;display:flex;align-items:center;gap:9px;padding:7px 14px 7px 8px;border:1px solid rgba(255,255,255,.9);border-radius:28px;background:rgba(250,250,240,.94);color:#53694a;box-shadow:0 6px 22px rgba(81,103,64,.2);font-size:12px;font-weight:700;transition:transform .2s,box-shadow .2s,opacity .2s}
+    .next-mission:not(:disabled):hover {transform:translateY(-3px);box-shadow:0 10px 25px rgba(81,103,64,.27)}
+    .next-mission:disabled {opacity:.52;cursor:default}
+    .next-icon {width:42px;height:42px;border-radius:50%;background:#eff2df;display:grid;place-items:center;overflow:hidden}
+    .next-icon svg {width:38px;height:38px}
+    @media(max-width:520px){.next-mission{right:13px;bottom:13px;padding-right:11px}.next-icon{width:38px;height:38px}.next-icon svg{width:35px;height:35px}}
+    .hint {font-size:11px;color:#9a9c92}
+    .side {padding-top:7px}
+    .date-row {display:flex;align-items:center;justify-content:space-between;padding-bottom:19px;border-bottom:1px solid var(--line)}
+    .date-row strong {font-size:13px;font-weight:600}.date-row span {font-size:11px;color:var(--muted)}
+    .stats {display:grid;grid-template-columns:1fr 1fr;padding:21px 0 23px;border-bottom:1px solid var(--line)}
+    .stat + .stat {border-left:1px solid var(--line);padding-left:23px}
+    .stat label {display:block;color:var(--muted);font-size:11px;margin-bottom:9px}
+    .stat b {font-family:'Gowun Batang',serif;font-size:32px;letter-spacing:-1px;font-weight:400}.stat small {font-size:12px;color:#8a8e83;margin-left:3px}
+    .section-title {display:flex;align-items:center;justify-content:space-between;margin:22px 0 14px;font-size:12px;font-weight:700}
+    .section-title span {font-size:10px;color:#92958d;font-weight:400}
+    .week {display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+    .day {text-align:center;color:#a0a197;font-size:10px}.day i {font-style:normal;display:grid;place-items:center;width:29px;height:29px;margin:8px auto 0;border-radius:50%;font-size:11px;color:#6e7369}
+    .day.today i {background:var(--green);color:#293328;font-weight:700}.day.past i {background:#e8e8df;color:#77816a}
+    .quote {margin-top:28px;padding:16px 17px;background:#eeece4;border-radius:5px;color:#74796e;font-family:'Gowun Batang',serif;font-size:12px;line-height:1.8}
+    .quote span {display:block;font-family:'DM Sans','Gowun Dodum',sans-serif;font-size:9px;letter-spacing:1px;color:#9a9c90;margin-top:8px}
+    .bottom {margin-top:37px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#9b9d94;font-size:10px}
+    .toast {position:fixed;bottom:26px;left:50%;transform:translate(-50%,20px);opacity:0;background:#24372a;color:white;border-radius:4px;padding:12px 19px;font-size:12px;pointer-events:none;transition:.3s;white-space:nowrap;z-index:4}.toast.show {opacity:1;transform:translate(-50%,0)}
+    @media(max-width:760px){.shell{padding:0 22px 30px}header{height:70px}.header-right{gap:10px}.header-right .welcome{display:none}main{grid-template-columns:1fr;gap:35px;padding-top:35px}h1{font-size:36px}.quest-card{min-height:315px;padding:23px}.quest-body h2{font-size:25px}.side{padding-top:0}.quote{margin-top:22px}.bottom{margin-top:30px}}
+    @media(min-width:761px) and (max-width:940px){.shell{padding-left:30px;padding-right:30px}main{gap:32px}.quest-card{padding:24px}.quest-body h2{font-size:25px}}
+    /* A soft, clover-garden palette inspired by the supplied moodboard. */
+    :root { --paper:#e6e9d7; --ink:#354333; --muted:#78816f; --line:#d0d7c2; --green:#c3d39c; --deep:#dce5c8; --white:#faf8ec; }
+    body { background-color:var(--paper); background-image:radial-gradient(ellipse at 8% 18%,rgba(255,255,255,.37) 0 1px,transparent 2px),radial-gradient(ellipse at 76% 8%,rgba(115,147,93,.09) 0 1px,transparent 2px),linear-gradient(135deg,rgba(255,255,255,.13),transparent 48%);background-size:19px 23px,27px 31px,100% 100%; }
+    header { border-color:#cfd6c1; }
+    .brand {font-family:'Gowun Dodum',sans-serif;letter-spacing:-.3px}
+    .brand-mark {background:#c4d89b;color:#4f773f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+    .brand-mark svg {width:22px;height:22px;display:block}
+    .profile {background:#d4ddc4}
+    .eyebrow {color:#81916c;letter-spacing:2.4px}
+    h1 {color:#394b38}
+    h1 em {color:#62804d}
+    .sub {color:#7e8775}
+    .quest-card {background:#d4e1bf;color:#354b37;border:1px solid rgba(255,255,255,.72);border-radius:12px;box-shadow:0 12px 30px rgba(76,99,67,.08),inset 0 1px rgba(255,255,255,.55)}
+    .quest-card:after {content:'';display:none}
+    .clover-art {position:absolute;right:4px;top:18px;width:205px;height:205px;opacity:.28;transform:rotate(13deg);z-index:0}
+    .clover-art .leaf {fill:url(#glassFill);stroke:url(#glassEdge);stroke-width:2}
+    .clover-art .stem {fill:none;stroke:url(#glassEdge);stroke-width:5;stroke-linecap:round}
+    .clover-art .facet {fill:none;stroke:rgba(255,255,255,.9);stroke-width:2;stroke-linecap:round}
+    .clover-art {opacity:.62;filter:drop-shadow(0 8px 9px rgba(98,119,75,.2))}
+    .quest-card:before {content:'✿';position:absolute;right:160px;top:86px;color:rgba(255,255,255,.43);font-size:24px;transform:rotate(-15deg)}
+    .tag {border-color:#a9bd92;color:#59714d;background:rgba(250,248,236,.28)}
+    .refresh {color:#667d59}.refresh:hover{color:#344b38}
+    .quest-body h2 {color:#354c38}
+    .quest-body p {color:#71816a}
+    .quest-bottom {border-color:#bdcda9;color:#77866c}
+    .quest-bottom strong {color:#486443}
+    .complete {background:#76945d;color:#fffdf2;border-radius:5px;box-shadow:0 4px 12px rgba(84,112,66,.14)}
+    .complete:hover {background:#66834e}
+    .complete.done {background:#e8ebdc;color:#75846a}
+    .hint {color:#808a77}
+    .stats {border-color:#cfd6c1}
+    .stat + .stat {border-color:#cfd6c1}
+    .stat label,.date-row span,.section-title span {color:#7e8975}
+    .stat b {color:#435c40}
+    .day i {color:#78836f}
+    .day.today i {background:#78945f;color:#fffdf2;box-shadow:0 2px 6px rgba(83,111,65,.16)}
+    .day.past i {background:#cbd8b7;color:#55734c}
+    .quote {background:#eff0e3;border:1px solid rgba(255,255,255,.7);border-radius:8px;color:#697b5f}
+    .quote span {color:#929c83}
+    .bottom {border-color:#cfd6c1;color:#87907d}
+    .toast {background:#587449;border-radius:8px}
+    .day.past i {background:#78945f;color:#fffdf2}
+    .day.past i svg {width:21px;height:21px;display:block;filter:drop-shadow(0 1px 2px rgba(85,102,71,.28))}
+    .day.past i {background:#e7e8dc;color:#fffdf2}
+    .celebration {position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:24px;background:rgba(247,249,239,.82);backdrop-filter:blur(5px);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+    .celebration.show {opacity:1;visibility:visible}
+    .celebration:before {content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,255,255,.98) 0 9%,rgba(224,248,182,.65) 24%,rgba(169,216,132,.37) 43%,transparent 70%);animation:halo 2.7s ease-in-out infinite alternate}
+    @keyframes halo {from{transform:scale(.84);opacity:.72}to{transform:scale(1.12);opacity:1}}
+    .celebration-card {position:relative;z-index:1;width:min(510px,100%);padding:52px 34px 42px;text-align:center;border:1px solid rgba(255,255,255,.95);border-radius:24px;background:rgba(250,251,242,.86);box-shadow:0 20px 70px rgba(107,145,79,.2),0 0 50px rgba(220,250,183,.72);animation:pop .55s cubic-bezier(.2,.8,.2,1) both}
+    @keyframes pop {from{transform:translateY(15px) scale(.88);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+    .celebration-clover {width:154px;height:154px;margin:0 auto 15px;filter:drop-shadow(0 0 12px rgba(255,255,255,.95)) drop-shadow(0 0 24px rgba(191,222,150,.85));animation:float 2.5s ease-in-out infinite}
+    @keyframes float {50%{transform:translateY(-8px) rotate(5deg)}}
+    .celebration-kicker {font-size:11px;letter-spacing:3px;color:#78945f;font-weight:700}
+    .celebration-card h2 {font-family:'Gowun Batang',serif;font-size:32px;color:#40563d;margin:12px 0 8px}
+    .celebration-card p {color:#7c8971;font-size:13px;line-height:1.8;margin:0 0 23px}
+    .celebration-close {border:0;border-radius:6px;background:#78945f;color:#fffdf2;padding:12px 25px;font-size:13px;font-weight:700}
+    .celebration-close:hover {background:#66834e}
+    .sparkle {position:absolute;color:#9ebe77;animation:twinkle 1.8s ease-in-out infinite alternate}
+    .sparkle.one{left:17%;top:23%;font-size:24px}.sparkle.two{right:20%;top:31%;font-size:17px;animation-delay:.7s}.sparkle.three{left:23%;bottom:24%;font-size:18px;animation-delay:.3s}.sparkle.four{right:17%;bottom:25%;font-size:25px;animation-delay:1s}
+    @keyframes twinkle {from{opacity:.3;transform:scale(.7) rotate(-12deg)}to{opacity:1;transform:scale(1.15) rotate(12deg)}}
+    @media(max-width:520px){.celebration-card{padding:42px 22px 32px}.celebration-card h2{font-size:27px}.celebration-clover{width:128px;height:128px}.sparkle.one{left:7%}.sparkle.two{right:8%}.sparkle.three{left:9%}.sparkle.four{right:7%}}
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <linearGradient id="glassFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".94"/><stop offset=".42" stop-color="#f5f1e9" stop-opacity=".48"/><stop offset=".72" stop-color="#dce7d0" stop-opacity=".62"/><stop offset="1" stop-color="#fff" stop-opacity=".9"/></linearGradient>
+      <linearGradient id="glassEdge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".42" stop-color="#a9aa9b"/><stop offset=".7" stop-color="#fff"/><stop offset="1" stop-color="#777b6e"/></linearGradient>
+      <radialGradient id="glassGlow"><stop stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+      <symbol id="glass-clover" viewBox="0 0 120 140">
+        <ellipse cx="60" cy="58" rx="45" ry="43" fill="url(#glassGlow)" opacity=".5"/>
+        <g fill="url(#glassFill)" stroke="url(#glassEdge)" stroke-width="2.1" stroke-linejoin="round">
+          <path class="leaf" d="M60 60C49 50 27 43 31 27c4-16 23-16 29 4 6-20 25-20 29-4 4 16-18 23-29 33Z"/>
+          <path class="leaf" d="M60 60C50 49 43 27 27 31c-16 4-16 23 4 29-20 6-20 25-4 29 16 4 23-18 33-29Z"/>
+          <path class="leaf" d="M60 60C70 49 77 27 93 31c16 4 16 23-4 29 20 6 20 25 4 29-16 4-23-18-33-29Z"/>
+          <path class="leaf" d="M60 60C49 70 27 77 31 93c4 16 23 16 29-4 6 20 25 20 29 4 4-16-18-23-29-33Z"/>
+        </g>
+        <g fill="none" stroke="#fff" stroke-linecap="round" opacity=".9">
+          <path d="M57 54C49 45 41 39 39 31M63 54c8-9 16-15 18-23M54 58c-9-7-15-10-22-10M66 58c9-7 15-10 22-10M57 65c-8 8-13 15-15 23M63 65c8 8 13 15 15 23" stroke-width="1.7"/>
+          <path d="M60 62c-2 29 5 47 15 64" stroke-width="3"/>
+        </g>
+        <circle cx="60" cy="60" r="5.5" fill="#fff" stroke="#aaa99c" stroke-width="1.5"/>
+        <circle cx="58" cy="58" r="1.7" fill="#fff"/>
+      </symbol>
+    </defs>
+  </svg>
+  <div class="shell">
+    <header>
+      <div class="brand"><span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M24 23C9 23 8 12 15 8c5-3 9 1 9 7 0-6 5-10 10-7 7 4 5 15-10 15Zm1 1c0-15 11-16 15-9 3 5-1 9-7 9 6 0 10 5 7 10-4 7-15 5-15-10Zm-2 1c-15 0-16 11-9 15 5 3 9-1 9-7 0 6 5 10 10 7 7-4 5-15-10-15Zm-1-2c0-15-11-16-15-9-3 5 1 9 7 9-6 0-10 5-7 10 4 7 15 5 15-10Z"/><circle cx="24" cy="24" r="3" fill="#eff2dd"/></svg></span> 원데이 퀘스트</div>
+      <div class="header-right"><span class="welcome">오늘도 반가워요</span><span class="profile">🌱</span></div>
+    </header>
+    <main>
+      <section>
+        <div class="eyebrow" id="todayLabel">YOUR DAILY ADVENTURE</div>
+        <h1>오늘은 어떤<br><em>작은 모험</em>을 해볼까요?</h1>
+        <p class="sub">작은 퀘스트 하나가 오늘을 조금 특별하게 만들어요.</p>
+        <article class="quest-card">
+          <svg class="clover-art" viewBox="0 0 120 140" aria-hidden="true"><use href="#glass-clover"/></svg>
+          <div class="quest-top"><span class="tag" id="category">오늘의 퀘스트 · 마음챙김</span><span class="quest-progress" id="missionProgress">1 / 3 미션</span></div>
+          <div class="quest-body"><h2 id="mission">평소 가보지 않은 길로<br>산책해 보세요.</h2><p id="description">익숙한 하루에 새로운 풍경 한 조각을 더해봐요.</p></div>
+          <div class="quest-bottom"><span>예상 소요 시간 &nbsp; <strong id="duration">15분</strong></span><span>✦ &nbsp; +<strong id="points">20</strong> 포인트</span></div>
+        </article>
+        <div class="actions"><button class="complete" id="complete">퀘스트 완료하기 &nbsp; →</button><span class="hint">오늘의 작은 도전을 기록해요</span></div>
+      </section>
+      <aside class="side">
+        <div class="date-row"><strong id="dateText">11월 5일 목요일</strong><span>WEEK 45</span></div>
+        <div class="stats">
+          <div class="stat"><label>연속 달성</label><b id="streak">0</b><small>일째 🔥</small></div>
+          <div class="stat"><label>모은 포인트</label><b id="totalPoints">0</b><small>p</small></div>
+        </div>
+        <div class="section-title">이번 주 기록 <span id="weekCount">0 / 7 완료</span></div>
+        <div class="week" id="week"></div>
+        <div class="quote"><span class="quote-text" id="quoteText">“위대한 일은 작은 일들이 모여 이루어진다.”</span><span id="quoteAuthor">— 빈센트 반 고흐</span></div>
+      </aside>
+    </main>
+    <footer class="bottom"><span>ONE DAY QUEST &nbsp;·&nbsp; 하루 한 번, 나를 위한 모험</span><span>작은 시작이 만드는 좋은 하루</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <button class="next-mission" id="nextMission" disabled>
+    <span class="next-icon"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 62c-8-5-11-18-7-32C18 15 28 9 41 10c15 1 22 12 21 27-1 14-7 25-17 28l1 7-11-2-8 5Z" fill="#fffef5" stroke="#34342e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 27c-7-7-4-16 3-17 6-1 9 5 6 11 5-6 12-5 13 1 1 7-7 11-16 9Z" fill="#c6ef72" stroke="#34342e" stroke-width="2"/><path d="M46 25c2-8 10-10 14-5 4 5 0 10-6 11 7 1 9 8 4 12-6 4-12-3-11-12Z" fill="#c6ef72" stroke="#34342e" stroke-width="2"/><circle cx="33" cy="42" r="4" fill="#34342e"/><circle cx="49" cy="42" r="4" fill="#34342e"/><circle cx="32" cy="41" r="1.3" fill="#fff"/><circle cx="48" cy="41" r="1.3" fill="#fff"/><path d="M39 49q2 3 4 0M28 38l-5-2m30 2 5-2" fill="none" stroke="#34342e" stroke-width="1.7" stroke-linecap="round"/><path d="M11 20l2-5 2 5 5 2-5 2-2 5-2-5-5-2Zm51 20 1-3 1 3 3 1-3 1-1 3-1-3-3-1Z" fill="#b9df69" stroke="#34342e" stroke-width="1.2"/></svg></span>
+    <span id="nextMissionLabel">다음 미션 하기</span>
+  </button>
+  <div class="celebration" id="celebration" role="dialog" aria-modal="true" aria-labelledby="celebrationTitle">
+    <span class="sparkle one" aria-hidden="true">✦</span><span class="sparkle two" aria-hidden="true">✧</span><span class="sparkle three" aria-hidden="true">✧</span><span class="sparkle four" aria-hidden="true">✦</span>
+    <div class="celebration-card">
+      <svg class="celebration-clover" viewBox="0 0 120 140" aria-hidden="true"><use href="#glass-clover"/></svg>
+      <div class="celebration-kicker">TODAY'S LITTLE ADVENTURE</div><h2 id="celebrationTitle">오늘의 퀘스트 달성!</h2><p>작은 도전을 해낸 오늘의 나에게<br>행운과 박수를 보내요.</p><button class="celebration-close" id="celebrationClose">고마워, 오늘도 해냈어</button>
+    </div>
+  </div>
+  <script>
+    const missions = [
+      {cat:'마음챙김',title:'평소 가보지 않은 길로<br>산책해 보세요.',desc:'익숙한 하루에 새로운 풍경 한 조각을 더해봐요.',time:'15분',points:20},
+      {cat:'다정한 하루',title:'고마운 사람에게<br>먼저 안부를 건네요.',desc:'짧은 한마디가 누군가의 하루를 환하게 만들어요.',time:'5분',points:20},
+      {cat:'나를 돌보기',title:'좋아하는 노래 한 곡을<br>끝까지 들어보세요.',desc:'잠시 멈추고 지금 이 순간에 집중해 봐요.',time:'4분',points:15}
+    ];
+    const quotes = [
+      {text:'“위대한 일은 작은 일들이 모여 이루어진다.”',author:'— 빈센트 반 고흐'},
+      {text:'“천천히 피어나는 꽃도 자기만의 계절을 알고 있어요.”',author:'— 오늘의 문장'},
+      {text:'“작은 기쁨을 알아보는 마음이 하루를 환하게 밝혀요.”',author:'— 오늘의 문장'},
+      {text:'“잠깐 쉬어가도 괜찮아요. 당신의 걸음은 계속되고 있으니까요.”',author:'— 오늘의 문장'},
+      {text:'“오늘 건넨 다정함은 어딘가에 오래 머물러요.”',author:'— 오늘의 문장'},
+      {text:'“새로운 시작은 아주 작은 용기에서 자라나요.”',author:'— 오늘의 문장'},
+      {text:'“나를 돌보는 시간도 소중한 모험이에요.”',author:'— 오늘의 문장'}
+    ];
+    const key='oneDayQuest_v1';
+    let state=JSON.parse(localStorage.getItem(key)||'{}');
+    const todayKey=()=>new Date().toLocaleDateString('en-CA');
+    let today=todayKey();
+    function save(){localStorage.setItem(key,JSON.stringify(state))}
+    function renderMission(){let step=state.missionStep||0,m=missions[state.missionPlan[step]];let done=!!state.missionDone?.[step],last=step===missions.length-1;document.getElementById('category').textContent='오늘의 퀘스트 · '+m.cat;document.getElementById('mission').innerHTML=m.title;document.getElementById('description').textContent=m.desc;document.getElementById('duration').textContent=m.time;document.getElementById('points').textContent=m.points;document.getElementById('missionProgress').textContent=(step+1)+' / 3 미션';let b=document.getElementById('complete');b.innerHTML=done?'<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#glass-clover"/></svg>미션 완료':'퀘스트 완료하기 &nbsp; →';b.classList.toggle('done',done);b.disabled=done;let next=document.getElementById('nextMission');next.disabled=!done||last;document.getElementById('nextMissionLabel').textContent=last?(done?'오늘 미션 완료':'다음 미션 하기'):'다음 미션 하기'}
+    function weekStart(d){let x=new Date(d);let day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);x.setHours(0,0,0,0);return x}
+    function render(){let d=new Date();let fmt=new Intl.DateTimeFormat('ko-KR',{month:'long',day:'numeric',weekday:'long'});document.getElementById('dateText').textContent=fmt.format(d);document.getElementById('todayLabel').textContent=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}).toUpperCase()+'  ·  YOUR DAILY ADVENTURE';
+      let dayNumber=Math.floor(new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime()/86400000);let quote=quotes[((dayNumber%quotes.length)+quotes.length)%quotes.length];document.getElementById('quoteText').textContent=quote.text;document.getElementById('quoteAuthor').textContent=quote.author;
+      let completed=state.completed||{};let streak=0;let cursor=new Date();while((cursor.toLocaleDateString('en-CA')===today?state.dailyComplete?.[today]:(state.dailyComplete?.[cursor.toLocaleDateString('en-CA')]||completed[cursor.toLocaleDateString('en-CA')]))){streak++;cursor.setDate(cursor.getDate()-1)}
+      document.getElementById('streak').textContent=streak;document.getElementById('totalPoints').textContent=Object.values(completed).reduce((a,b)=>a+b,0);
+      let start=weekStart(d), names=['월','화','수','목','금','토','일'], count=0, html='';for(let i=0;i<7;i++){let x=new Date(start);x.setDate(x.getDate()+i);let k=x.toLocaleDateString('en-CA'),done=!!state.dailyComplete?.[k]||(k!==today&&!!completed[k]),isToday=k===today;if(done)count++;let marker=done?'<svg viewBox="0 0 120 140" aria-label="완료"><use href="#glass-clover"/></svg>':x.getDate();html+=`<div class="day ${isToday?'today':''} ${done?'past':''}">${names[i]}<i>${marker}</i></div>`}document.getElementById('week').innerHTML=html;document.getElementById('weekCount').textContent=count+' / 7 완료';renderMission()}
+    document.getElementById('complete').addEventListener('click',()=>{let step=state.missionStep||0;if(state.missionDone?.[step])return;let m=missions[state.missionPlan[step]];state.missionDone=state.missionDone||[];state.missionDone[step]=true;state.completed=state.completed||{};state.completed[today]=(state.completed[today]||0)+m.points;if(step===missions.length-1)state.dailyComplete=Object.assign(state.dailyComplete||{},{[today]:true});save();render();document.getElementById('celebrationTitle').textContent=step===missions.length-1?'오늘의 미션 모두 달성!':'미션 달성!';document.getElementById('celebration').classList.add('show');document.getElementById('celebrationClose').focus()});
+    document.getElementById('celebrationClose').addEventListener('click',()=>document.getElementById('celebration').classList.remove('show'));
+    document.getElementById('celebration').addEventListener('click',e=>{if(e.target.id==='celebration')e.currentTarget.classList.remove('show')});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('celebration').classList.remove('show')});
+    document.getElementById('nextMission').addEventListener('click',()=>{let step=state.missionStep||0;if(state.missionDone?.[step]&&step<missions.length-1){state.missionStep=step+1;save();renderMission()}});
+    if(state.day!==today){state.day=today;state.missionPlan=missions.map((_,i)=>i).sort(()=>Math.random()-.5);state.missionStep=0;state.missionDone=[];save()}else if(!Array.isArray(state.missionPlan)||state.missionPlan.length!==missions.length){state.missionPlan=missions.map((_,i)=>i).sort(()=>Math.random()-.5);state.missionStep=0;state.missionDone=[];save()}render();
+  </script>
+</body>
+</html>
