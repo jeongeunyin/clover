@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 900" role="img" aria-labelledby="title description">
+  <title id="title">포근한 클로버 콜라주</title>
+  <desc id="description">연두색 체크무늬와 종이, 하얀 토끼, 클로버와 별을 겹친 그림</desc>
+  <defs>
+    <pattern id="gingham" width="44" height="44" patternUnits="userSpaceOnUse">
+      <rect width="44" height="44" fill="#fbfff1"/>
+      <path d="M0 0h22v44H0zM0 0h44v22H0z" fill="#bcda91" opacity=".75"/>
+      <path d="M0 0h22v22H0z" fill="#a8ce78" opacity=".55"/>
+    </pattern>
+    <linearGradient id="paper" x2="1" y2="1"><stop stop-color="#f3f7cb"/><stop offset="1" stop-color="#d4e9ae"/></linearGradient>
+    <radialGradient id="leaf"><stop stop-color="#5d8c3e"/><stop offset=".6" stop-color="#3d702f"/><stop offset="1" stop-color="#24532b"/></radialGradient>
+    <filter id="shadow"><feDropShadow dx="3" dy="7" stdDeviation="8" flood-color="#65864f" flood-opacity=".17"/></filter>
+  </defs>
+  <rect width="640" height="900" fill="#f5fae9"/>
+  <path d="M72 270h330v395H72z" fill="url(#gingham)" filter="url(#shadow)" transform="rotate(-2 237 468)"/>
+  <path d="M205 176h352v320H205z" fill="url(#paper)" filter="url(#shadow)" transform="rotate(3 381 336)"/>
+  <path d="M244 445h246v126H244z" fill="#f5fbdd" stroke="#d7e5bd" stroke-width="4" filter="url(#shadow)" transform="rotate(-4 367 508)"/>
+  <path d="M268 467h198v84H268z" fill="none" stroke="#b8d393" stroke-width="2" stroke-dasharray="4 5" transform="rotate(-4 367 508)"/>
+  <g transform="translate(129 172) rotate(-8)" filter="url(#shadow)">
+    <ellipse cx="37" cy="54" rx="18" ry="55" fill="#fffdf7" transform="rotate(-8 37 54)"/>
+    <ellipse cx="73" cy="54" rx="18" ry="55" fill="#fffdf7" transform="rotate(9 73 54)"/>
+    <ellipse cx="55" cy="113" rx="49" ry="51" fill="#fffdf7"/>
+    <ellipse cx="53" cy="186" rx="55" ry="62" fill="#f7f7ef"/>
+    <ellipse cx="16" cy="168" rx="18" ry="34" fill="#fffdf7" transform="rotate(23 16 168)"/>
+    <ellipse cx="94" cy="168" rx="18" ry="34" fill="#fffdf7" transform="rotate(-23 94 168)"/>
+    <circle cx="40" cy="114" r="2.5" fill="#394538"/><circle cx="71" cy="114" r="2.5" fill="#394538"/>
+    <path d="M51 130q5 4 9 0" fill="none" stroke="#394538" stroke-width="2" stroke-linecap="round"/>
+    <path d="M11 150q42 21 85 3" fill="none" stroke="#59644d" stroke-width="14" stroke-linecap="round"/>
+    <path d="M50 158q15 35 3 56" fill="none" stroke="#59644d" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g fill="#3d662f" stroke="#f6fae8" stroke-width="3" transform="translate(493 166) rotate(16)">
+    <path d="M0 0C-18-40-49-13-17 8-49-4-46 28-9 19-27 53 4 53 8 20 24 54 53 36 22 12 56 7 39-25 12 2 14-34-7-37 0 0Z"/>
+    <path d="M4 12q18 24 16 57" fill="none" stroke="#799b64" stroke-width="3"/>
+  </g>
+  <g fill="url(#leaf)" transform="translate(352 508) scale(.52)">
+    <path d="M0 0C-18-40-49-13-17 8-49-4-46 28-9 19-27 53 4 53 8 20 24 54 53 36 22 12 56 7 39-25 12 2 14-34-7-37 0 0Z"/>
+    <path d="M4 12q18 24 16 57" fill="none" stroke="#799b64" stroke-width="3"/>
+  </g>
+  <g font-family="serif" fill="#416534" text-anchor="middle">
+    <text x="375" y="329" font-size="35" letter-spacing="2" transform="rotate(3 375 329)">오늘도 작은</text>
+    <text x="378" y="385" font-size="48" letter-spacing="3" transform="rotate(3 378 385)">행운을 만나</text>
+    <text x="367" y="430" font-size="26" transform="rotate(3 367 430)">♡ ᵕ̈ ♡</text>
+  </g>
+  <g fill="none" stroke="#50783c" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M545 70l14 37 43 10-43 11-14 39-10-39-44-11 44-10z"/>
+    <path d="M72 747l8 25 26 6-26 7-8 26-6-26-27-7 27-6z"/>
+  </g>
+  <g fill="#7c9d57"><path d="M461 84l5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/><path d="M551 555l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><circle cx="486" cy="609" r="3"/><circle cx="91" cy="145" r="3"/></g>
+  <path d="M362 720q59-28 109 4l-12 68q-51 12-93-4z" fill="#e6efcb" stroke="#9ebc7c" stroke-width="4" transform="rotate(6 416 756)"/>
+  <text x="416" y="756" font-family="serif" font-size="21" fill="#5a7648" text-anchor="middle" transform="rotate(6 416 756)">One Day</text>
+  <text x="416" y="783" font-family="serif" font-size="21" fill="#5a7648" text-anchor="middle" transform="rotate(6 416 756)">Quest</text>
+  <path d="M228 728c15-21 43-23 59 0 16-23 44-21 59 0 13 26-18 51-59 83-41-32-72-57-59-83z" fill="#edf5df" stroke="#c5d9ab" stroke-width="4" filter="url(#shadow)"/>
+  <text x="287" y="774" font-family="serif" font-size="32" fill="#62854e" text-anchor="middle">☘</text>
+</svg>

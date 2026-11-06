@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
@@ -16,8 +16,11 @@
     .brand { display:flex; align-items:center; gap:11px; font-size:17px; font-weight:800; letter-spacing:-.7px; }
     .brand-mark { display:grid; place-items:center; width:34px;height:34px;background:var(--green);border-radius:50%;font-size:17px; }
     .header-right { display:flex; align-items:center; gap:22px; color:var(--muted); font-size:12px; }
-    .profile { width:36px;height:36px;border-radius:50%;background:#e6e1d5;display:grid;place-items:center;font-size:17px; }
+    .profile { width:36px;height:36px;border:0;border-radius:50%;background:#e6e1d5;display:grid;place-items:center;font-size:17px;cursor:pointer; }
     main { display:grid;grid-template-columns:minmax(0,1.52fr) minmax(280px,.78fr);gap:64px;padding-top:53px; }
+    .left-art {display:none}
+    .left-art img {display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 12px 32px rgba(88,112,65,.12)}
+    @media(min-width:1250px){.shell{max-width:1460px;padding-left:32px;padding-right:32px}#homeView{grid-template-columns:220px minmax(0,1.52fr) minmax(280px,.78fr);gap:42px}.left-art{display:block;align-self:start;position:sticky;top:24px}}
     .eyebrow { color:#757c6f;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase; }
     h1 { font-family:'Gowun Batang',serif;font-size:43px;line-height:1.35;letter-spacing:-2px;margin:15px 0 8px;font-weight:700; }
     h1 em { font-style:normal;color:#758b38; }
@@ -46,6 +49,22 @@
     .next-mission:disabled {opacity:.52;cursor:default}
     .next-icon {width:42px;height:42px;border-radius:50%;background:#eff2df;display:grid;place-items:center;overflow:hidden}
     .next-icon svg {width:38px;height:38px}
+    .proof {margin-top:16px;padding:17px 18px;border:1px dashed #a9bd92;border-radius:10px;background:rgba(250,251,242,.72);display:flex;align-items:center;gap:15px}
+    .proof-visual {width:58px;height:58px;flex:none;border-radius:9px;background:#e7edda;display:grid;place-items:center;color:#78945f;font-size:27px;overflow:hidden}
+    .proof-visual img {width:100%;height:100%;object-fit:cover;display:none}
+    .proof.has-photo .proof-visual img {display:block}
+    .proof.has-photo .proof-placeholder {display:none}
+    .proof-copy {min-width:0;flex:1}
+    .proof-title {font-size:12px;font-weight:700;color:#4b6245;margin:0 0 4px}
+    .proof-description {font-size:11px;line-height:1.5;color:#819078;margin:0}
+    .proof-controls {display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+    .proof-picker,.proof-remove {padding:8px 10px;border-radius:5px;font-size:11px;white-space:nowrap}
+    .proof-picker {border:1px solid #a8bc96;background:#f8faed;color:#536e4b;font-weight:700}
+    .proof-remove {border:0;background:transparent;color:#819078;display:none}
+    .proof.has-photo:not(.locked) .proof-remove {display:block}
+    .proof.locked .proof-picker {display:none}
+    .proof-picker:hover {background:#eff5df}
+    @media(max-width:520px){.proof{align-items:flex-start;gap:11px;padding:13px}.proof-visual{width:52px;height:52px}.proof-controls{margin-left:auto}.proof-picker,.proof-remove{padding:7px 6px}}
     @media(max-width:520px){.next-mission{right:13px;bottom:13px;padding-right:11px}.next-icon{width:38px;height:38px}.next-icon svg{width:35px;height:35px}}
     .hint {font-size:11px;color:#9a9c92}
     .side {padding-top:7px}
@@ -127,6 +146,140 @@
     .sparkle.one{left:17%;top:23%;font-size:24px}.sparkle.two{right:20%;top:31%;font-size:17px;animation-delay:.7s}.sparkle.three{left:23%;bottom:24%;font-size:18px;animation-delay:.3s}.sparkle.four{right:17%;bottom:25%;font-size:25px;animation-delay:1s}
     @keyframes twinkle {from{opacity:.3;transform:scale(.7) rotate(-12deg)}to{opacity:1;transform:scale(1.15) rotate(12deg)}}
     @media(max-width:520px){.celebration-card{padding:42px 22px 32px}.celebration-card h2{font-size:27px}.celebration-clover{width:128px;height:128px}.sparkle.one{left:7%}.sparkle.two{right:8%}.sparkle.three{left:9%}.sparkle.four{right:7%}}
+    .brand-home {border:0;background:transparent;color:inherit;padding:0;text-align:left}
+    .top-nav {display:flex;align-items:center;gap:5px;margin-left:auto;margin-right:27px}
+    .top-nav button {border:0;background:transparent;color:#71816a;padding:9px 12px;border-radius:18px;font-size:12px;font-weight:700;white-space:nowrap}
+    .top-nav button:hover,.top-nav button[aria-current="page"] {background:#d7e2c4;color:#405c3c}
+    .screen[hidden],#homeView[hidden],.next-mission[hidden] {display:none}
+    .screen {max-width:820px;margin:0 auto;padding:54px 0 30px;min-height:560px}
+    .screen-head {display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:24px}
+    .screen h2 {font-family:'Gowun Batang',serif;color:#394b38;font-size:35px;line-height:1.3;letter-spacing:-1px;margin:12px 0 6px}
+    .screen-intro {font-size:13px;color:#7e8775;line-height:1.7;margin:0}
+    .local-note {font-size:11px;color:#85927a;background:#eef1e3;border-radius:20px;padding:8px 12px;white-space:nowrap}
+    .social-card {background:rgba(250,251,242,.82);border:1px solid rgba(255,255,255,.87);border-radius:12px;box-shadow:0 8px 25px rgba(76,99,67,.06);padding:22px;margin-bottom:17px}
+    .social-card h3 {font-size:14px;color:#465e42;margin:0 0 14px}
+    .social-card textarea,.social-card input,.social-card select,.social-filter {width:100%;border:1px solid #cbd6bc;background:#fffef7;border-radius:7px;color:#354333;font:inherit;font-size:13px;outline:none}
+    .social-card textarea {resize:vertical;min-height:105px;padding:12px 13px;line-height:1.6}
+    .social-card input,.social-card select,.social-filter {padding:11px 12px}
+    .social-card textarea:focus,.social-card input:focus,.social-card select:focus,.social-filter:focus {border-color:#78945f;box-shadow:0 0 0 3px rgba(120,148,95,.15)}
+    .social-card label {display:block;font-size:12px;font-weight:700;color:#5c7254;margin:0 0 7px}
+    .form-field {margin-bottom:17px}
+    .form-bottom {display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px}
+    .form-bottom select {max-width:230px}
+    .social-primary {border:0;background:#78945f;color:#fffdf2;border-radius:6px;padding:11px 17px;font-size:12px;font-weight:700;white-space:nowrap}
+    .social-primary:hover {background:#66834e}
+    .social-secondary {border:1px solid #afbf9f;background:#f5f8ec;color:#536e4b;border-radius:6px;padding:9px 12px;font-size:11px;font-weight:700}
+    .social-secondary:hover {background:#e9f0dc}
+    .social-link {border:0;background:transparent;color:#648355;font-size:11px;font-weight:700;padding:7px 0}
+    .social-row {display:flex;align-items:center;justify-content:space-between;gap:12px;margin:27px 0 13px}
+    .social-row h3 {font-size:14px;margin:0;color:#435b40}
+    .social-filter {max-width:190px}
+    .post-meta {display:flex;align-items:center;gap:8px;font-size:11px;color:#8b9782}
+    .post-avatar {display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#d9e7c7;color:#56744d;font-size:14px}
+    .post-meta strong {color:#4b6346;font-size:12px}
+    .post-group {margin-left:auto;color:#78945f}
+    .post-text {font-size:13px;color:#40523b;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere;margin:15px 0}
+    .post-actions {display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e0e7d5;padding-top:11px}
+    .post-actions button {border:0;background:transparent;color:#7b8b72;font-size:11px;padding:5px 0}
+    .post-actions button:hover,.post-actions button.liked {color:#688d57}
+    .empty-state {text-align:center;padding:56px 18px;color:#8a987f;background:rgba(250,251,242,.55);border:1px dashed #c5d2b7;border-radius:12px;font-size:12px;line-height:1.8}
+    .empty-state strong {display:block;color:#5d7754;font-family:'Gowun Batang',serif;font-size:22px;font-weight:400;margin-bottom:8px}
+    .group-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .group-card {margin:0;display:flex;flex-direction:column;min-height:184px}
+    .group-card-top {display:flex;align-items:center;gap:11px}
+    .group-icon {display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:#dbe9c6;color:#5c814c;font-size:23px}
+    .group-card h3 {margin:0;color:#425e3e;font-size:15px}
+    .group-card p {color:#788973;font-size:12px;line-height:1.7;margin:12px 0 16px;overflow-wrap:anywhere;flex:1}
+    .group-card-actions {display:flex;align-items:center;gap:10px}
+    .group-status {font-size:10px;color:#8a9781;margin-left:auto}
+    @media(max-width:760px){header{height:auto;min-height:70px;flex-wrap:wrap;padding:15px 0 12px;gap:8px}.top-nav{order:3;width:100%;margin:3px 0 0;justify-content:space-between;border-top:1px solid #cfd6c1;padding-top:9px}.top-nav button{flex:1;padding:8px 4px;font-size:11px}.screen{padding-top:35px}.screen h2{font-size:30px}}
+    @media(max-width:520px){.screen-head{display:block}.local-note{display:inline-block;margin-top:14px}.group-grid{grid-template-columns:1fr}.form-bottom{align-items:stretch;flex-direction:column}.form-bottom select{max-width:none}.social-row{align-items:flex-start}.social-filter{max-width:160px}}
+    .header-right {gap:8px}
+    .auth-header-button {border:1px solid #b9c8aa;background:rgba(250,251,242,.7);color:#536e4b;border-radius:20px;padding:8px 12px;font-size:11px;font-weight:700;white-space:nowrap}
+    .auth-header-button:hover {background:#eef4df}
+    .auth-header-button.primary {background:#78945f;border-color:#78945f;color:#fffdf2}
+    .auth-header-button.primary:hover {background:#66834e}
+    .account-name {font-size:12px;font-weight:700;color:#516b48;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .auth-modal[hidden] {display:none}
+    .auth-modal {position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;background:rgba(39,58,41,.36);backdrop-filter:blur(5px)}
+    .auth-dialog {position:relative;width:min(430px,100%);max-height:calc(100vh - 40px);overflow:auto;background:#fafbf2;border:1px solid #fff;border-radius:18px;box-shadow:0 25px 70px rgba(42,64,42,.22);padding:30px}
+    .auth-close {position:absolute;right:19px;top:15px;border:0;background:transparent;color:#7f8d74;font-size:25px;line-height:1;padding:4px}
+    .auth-dialog h2 {font-family:'Gowun Batang',serif;color:#40583d;font-size:28px;margin:0 0 5px}
+    .auth-subtitle {font-size:12px;color:#819077;line-height:1.6;margin:0 0 21px}
+    .auth-tabs {display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #d5ddc9;margin-bottom:21px}
+    .auth-tabs button {border:0;border-bottom:2px solid transparent;background:transparent;color:#8b9981;padding:10px;font-size:12px;font-weight:700}
+    .auth-tabs button.active {border-bottom-color:#78945f;color:#4c6744}
+    .auth-form[hidden] {display:none}
+    .auth-form label {display:block;font-size:11px;font-weight:700;color:#536e4b;margin:13px 0 6px}
+    .auth-form input {width:100%;padding:12px;border:1px solid #cad7bb;border-radius:7px;background:#fffef8;color:#354333;font:inherit;font-size:13px;outline:none}
+    .auth-form input:focus {border-color:#78945f;box-shadow:0 0 0 3px rgba(120,148,95,.14)}
+    .auth-submit {width:100%;margin-top:21px;border:0;border-radius:7px;padding:12px;background:#78945f;color:#fffef7;font-size:13px;font-weight:700}
+    .auth-submit:disabled {opacity:.6;cursor:wait}
+    .auth-error {min-height:18px;margin:11px 0 0;font-size:11px;color:#a44845}
+    .auth-note {margin:7px 0 0;color:#8d9885;font-size:10px;line-height:1.6}
+    .avatar-modal[hidden] {display:none}
+    .avatar-modal {position:fixed;inset:0;z-index:21;display:grid;place-items:center;padding:20px;background:rgba(39,58,41,.42);backdrop-filter:blur(6px)}
+    .avatar-dialog {position:relative;width:min(430px,100%);background:#fafbf2;border:1px solid #fff;border-radius:20px;box-shadow:0 25px 70px rgba(42,64,42,.22);padding:30px;text-align:center}
+    .avatar-dialog h2 {font-family:'Gowun Batang',serif;color:#40583d;font-size:27px;font-weight:400;margin:0 0 7px}
+    .avatar-dialog p {font-size:12px;color:#819077;margin:0 0 23px;line-height:1.6}
+    .avatar-options {display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .avatar-option {border:2px solid #e1e9d8;border-radius:16px;background:#f1f5e9;min-height:90px;display:grid;place-items:center;gap:3px;padding:10px;color:#58734d;cursor:pointer}
+    .avatar-option span {font-size:34px;line-height:1.1}
+    .avatar-option small {font-size:11px}
+    .avatar-option[aria-pressed="true"] {border-color:#78945f;background:#e5efd6;box-shadow:0 0 0 3px rgba(120,148,95,.15)}
+    .avatar-option:focus-visible,.profile:focus-visible {outline:3px solid #78945f;outline-offset:3px}
+    .avatar-save {width:100%;margin-top:22px;border:0;border-radius:9px;padding:13px;background:#78945f;color:#fffef7;font-size:13px;font-weight:700;cursor:pointer}
+    .avatar-save:disabled {opacity:.5;cursor:not-allowed}
+    @media(max-width:760px){.header-right .welcome{display:none}.header-right{margin-left:auto}.top-nav{margin-right:0}}
+    @media(max-width:520px){.auth-header-button{padding:7px 9px;font-size:10px}.account-name{max-width:74px}.auth-dialog{padding:25px 21px}}
+    .points-hero {display:flex;align-items:center;justify-content:space-between;gap:20px;padding:29px 30px;background:#d8e7c4;border:1px solid #edf4df;border-radius:14px;box-shadow:0 10px 30px rgba(76,99,67,.07)}
+    .points-hero span {font-size:12px;color:#69815e}.points-hero strong {display:block;font-family:'Gowun Batang',serif;font-size:46px;color:#405a3c;font-weight:400;line-height:1.2;margin-top:7px}.points-hero small {font-size:16px;margin-left:4px}
+    .points-hero .hero-clover {width:98px;height:115px;opacity:.8;filter:drop-shadow(0 6px 8px rgba(93,125,78,.13))}
+    .points-columns {display:grid;grid-template-columns:1.1fr .9fr;gap:17px;margin-top:17px}
+    .point-rule {display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #e1e8d7;font-size:12px;color:#71836b}.point-rule strong{color:#527448}
+    .point-rule:last-child {border-bottom:0}
+    .ad-action {display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}
+    .ad-count {color:#87957f;font-size:11px}
+    .shop-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:20px 0 26px}
+    .voucher-card {display:flex;flex-direction:column;margin:0;min-height:231px}
+    .voucher-art {height:74px;border-radius:9px;background:linear-gradient(135deg,#e8f0d8,#d4e4bd);display:grid;place-items:center;font-size:34px;margin-bottom:15px}
+    .voucher-card h3 {font-size:13px;line-height:1.5;margin:0 0 5px;color:#405a3c}
+    .voucher-card p {font-size:11px;line-height:1.6;color:#889580;margin:0 0 13px;flex:1}
+    .voucher-card-footer {display:flex;align-items:center;justify-content:space-between;gap:7px}.voucher-card-footer strong{font-size:13px;color:#60804e}.voucher-card-footer button:disabled{opacity:.45;cursor:default}
+    .redemption-row {display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #e0e7d5;font-size:12px}.redemption-row:last-child{border-bottom:0}.redemption-row strong{color:#455f40}.redemption-row span{color:#87957e;font-size:11px}
+    .demo-notice {margin:0 0 17px;padding:11px 14px;background:#f1f1e7;border-left:3px solid #9db88b;color:#76836d;font-size:11px;line-height:1.6;border-radius:3px}
+    .reward-modal[hidden] {display:none}
+    .reward-modal {position:fixed;inset:0;z-index:25;display:grid;place-items:center;padding:20px;background:rgba(39,58,41,.46);backdrop-filter:blur(5px)}
+    .reward-dialog {position:relative;width:min(440px,100%);background:#fafbf2;border:1px solid #fff;border-radius:18px;padding:32px;text-align:center;box-shadow:0 25px 70px rgba(42,64,42,.25)}
+    .reward-dialog h2 {font-family:'Gowun Batang',serif;color:#40583d;font-size:27px;margin:11px 0 9px}.reward-dialog p {color:#7d8b74;font-size:12px;line-height:1.7;margin:0 0 18px}
+    .reward-creative {height:145px;border-radius:10px;background:radial-gradient(circle at 50% 35%,#f8ffe5,#d0e5b2 66%,#bbd49b);display:grid;place-items:center;position:relative;overflow:hidden;color:#4a6b42}
+    .reward-creative svg {height:105px;width:105px;filter:drop-shadow(0 4px 12px rgba(103,137,77,.2))}.reward-creative:before,.reward-creative:after{content:'✦';position:absolute;color:#fff;font-size:22px;left:20%;top:25%}.reward-creative:after{left:auto;right:19%;top:60%;font-size:16px}
+    .reward-actions {display:flex;gap:9px;justify-content:center}.reward-actions button{min-width:110px}.reward-secondary {border:1px solid #bacbac;background:#f6f8ed;color:#627957;border-radius:6px;padding:11px 16px;font-size:12px;font-weight:700}
+    .reward-primary:disabled {opacity:.5;cursor:default}
+    .reward-timer {font-size:12px;font-weight:700;color:#648155;margin:15px 0 17px}
+    @media(max-width:760px){.top-nav{overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.top-nav::-webkit-scrollbar{display:none}.top-nav button{flex:none;padding:8px 10px}.points-columns{grid-template-columns:1fr}.shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:520px){.points-hero{padding:22px}.points-hero strong{font-size:39px}.points-hero .hero-clover{width:77px;height:88px}.shop-grid{grid-template-columns:1fr}.voucher-card{min-height:0}.reward-dialog{padding:26px 20px}}
+    .daily-guide {margin-top:28px;padding-top:3px}
+    .guide-heading {font-size:12px;font-weight:700;color:#4d6747;margin:0 0 13px}
+    .guide-card {background:rgba(250,251,242,.77);border:1px solid rgba(255,255,255,.8);border-radius:9px;padding:15px 16px;margin-bottom:10px;box-shadow:0 5px 16px rgba(76,99,67,.04)}
+    .guide-card h3 {font-size:11px;font-weight:700;color:#5d7953;margin:0 0 10px}
+    .guide-weather-top {display:flex;align-items:center;justify-content:space-between;gap:9px}
+    .guide-weather-top h3 {margin:0}
+    .guide-city {border:1px solid #c7d5b8;background:#f9fbf1;border-radius:5px;color:#58714e;padding:5px 7px;font:inherit;font-size:10px}
+    .guide-weather-main {display:flex;align-items:center;gap:9px;margin:15px 0 9px}
+    .guide-weather-icon {font-size:30px;width:38px;text-align:center}
+    .guide-weather-main strong {font-family:'Gowun Batang',serif;color:#3e593d;font-size:26px;font-weight:400;line-height:1.1}
+    .guide-weather-main span {color:#6d8165;font-size:12px}
+    .guide-weather-detail,.guide-subtext {font-size:10px;color:#8a9980;line-height:1.6;margin:4px 0 0}
+    .guide-source {display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;padding-top:9px;border-top:1px solid #e1e8d7;color:#91a086;font-size:9px}
+    .guide-source a {color:#6e8a61;text-decoration:none}.guide-source a:hover{text-decoration:underline}
+    .guide-refresh {border:0;background:transparent;color:#6e8a61;font:inherit;font-size:10px;padding:0;cursor:pointer}
+    .guide-recommendation {font-family:'Gowun Batang',serif;color:#425b3e;font-size:15px;line-height:1.55;margin:0}
+    .guide-meal {display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #e4eadc}
+    .guide-meal:last-child {border-bottom:0;padding-bottom:0}
+    .guide-meal:first-child {padding-top:0}
+    .guide-meal-icon {display:grid;place-items:center;width:29px;height:29px;flex:none;border-radius:50%;background:#e5edda;font-size:14px}
+    .guide-meal-copy {min-width:0}.guide-meal-copy small {display:block;color:#91a086;font-size:9px;margin-bottom:3px}.guide-meal-copy strong {display:block;color:#506a49;font-size:11px;font-weight:600;line-height:1.4}
   </style>
 </head>
 <body>
@@ -154,10 +307,12 @@
   </svg>
   <div class="shell">
     <header>
-      <div class="brand"><span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M24 23C9 23 8 12 15 8c5-3 9 1 9 7 0-6 5-10 10-7 7 4 5 15-10 15Zm1 1c0-15 11-16 15-9 3 5-1 9-7 9 6 0 10 5 7 10-4 7-15 5-15-10Zm-2 1c-15 0-16 11-9 15 5 3 9-1 9-7 0 6 5 10 10 7 7-4 5-15-10-15Zm-1-2c0-15-11-16-15-9-3 5 1 9 7 9-6 0-10 5-7 10 4 7 15 5 15-10Z"/><circle cx="24" cy="24" r="3" fill="#eff2dd"/></svg></span> 원데이 퀘스트</div>
-      <div class="header-right"><span class="welcome">오늘도 반가워요</span><span class="profile">🌱</span></div>
+      <button class="brand brand-home" id="homeNav" type="button"><span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="currentColor" d="M24 23C9 23 8 12 15 8c5-3 9 1 9 7 0-6 5-10 10-7 7 4 5 15-10 15Zm1 1c0-15 11-16 15-9 3 5-1 9-7 9 6 0 10 5 7 10-4 7-15 5-15-10Zm-2 1c-15 0-16 11-9 15 5 3 9-1 9-7 0 6 5 10 10 7 7-4 5-15-10-15Zm-1-2c0-15-11-16-15-9-3 5 1 9 7 9-6 0-10 5-7 10 4 7 15 5 15-10Z"/><circle cx="24" cy="24" r="3" fill="#eff2dd"/></svg></span> 원데이 퀘스트</button>
+      <nav class="top-nav" aria-label="주 메뉴"><button type="button" data-view="community">커뮤니티</button><button type="button" data-view="groups">그룹</button><button type="button" data-view="create">그룹 만들기</button><button type="button" data-view="points">포인트</button><button type="button" data-view="shop">포인트샵</button></nav>
+      <div class="header-right"><span class="welcome">오늘도 반가워요</span><button class="auth-header-button" id="loginOpen" type="button">로그인</button><button class="auth-header-button primary" id="signupOpen" type="button">회원가입</button><span class="account-name" id="accountName" hidden></span><button class="auth-header-button" id="logoutButton" type="button" hidden>로그아웃</button><button class="profile" id="profileIcon" type="button" aria-label="프로필 이미지 선택" title="프로필 이미지 선택">🌱</button></div>
     </header>
-    <main>
+    <main id="homeView">
+      <aside class="left-art" aria-label="클로버 콜라주 그림"><img src="left-clover-collage.svg" alt="토끼와 클로버, 연두색 체크무늬가 있는 포근한 콜라주" /></aside>
       <section>
         <div class="eyebrow" id="todayLabel">YOUR DAILY ADVENTURE</div>
         <h1>오늘은 어떤<br><em>작은 모험</em>을 해볼까요?</h1>
@@ -168,22 +323,88 @@
           <div class="quest-body"><h2 id="mission">평소 가보지 않은 길로<br>산책해 보세요.</h2><p id="description">익숙한 하루에 새로운 풍경 한 조각을 더해봐요.</p></div>
           <div class="quest-bottom"><span>예상 소요 시간 &nbsp; <strong id="duration">15분</strong></span><span>✦ &nbsp; +<strong id="points">20</strong> 포인트</span></div>
         </article>
+        <div class="proof" id="proofPanel">
+          <div class="proof-visual"><span class="proof-placeholder" aria-hidden="true">▧</span><img id="proofPreview" alt="현재 미션 인증샷 미리보기"></div>
+          <div class="proof-copy"><p class="proof-title" id="proofTitle">인증샷으로 미션 기록하기</p><p class="proof-description" id="proofDescription">사진을 올리면 미션을 완료할 수 있어요. 이 브라우저에만 저장돼요.</p></div>
+          <div class="proof-controls"><button class="proof-picker" type="button" id="proofPicker">사진 선택</button><button class="proof-remove" type="button" id="proofRemove">삭제</button></div>
+          <input type="file" id="proofInput" accept="image/*" hidden>
+        </div>
         <div class="actions"><button class="complete" id="complete">퀘스트 완료하기 &nbsp; →</button><span class="hint">오늘의 작은 도전을 기록해요</span></div>
       </section>
       <aside class="side">
         <div class="date-row"><strong id="dateText">11월 5일 목요일</strong><span>WEEK 45</span></div>
         <div class="stats">
           <div class="stat"><label>연속 달성</label><b id="streak">0</b><small>일째 🔥</small></div>
-          <div class="stat"><label>모은 포인트</label><b id="totalPoints">0</b><small>p</small></div>
+          <div class="stat"><label>사용 가능 포인트</label><b id="totalPoints">0</b><small>p</small></div>
         </div>
         <div class="section-title">이번 주 기록 <span id="weekCount">0 / 7 완료</span></div>
         <div class="week" id="week"></div>
         <div class="quote"><span class="quote-text" id="quoteText">“위대한 일은 작은 일들이 모여 이루어진다.”</span><span id="quoteAuthor">— 빈센트 반 고흐</span></div>
+        <div class="daily-guide">
+          <h2 class="guide-heading">오늘을 위한 작은 추천</h2>
+          <div class="guide-card"><div class="guide-weather-top"><h3>오늘의 날씨</h3><select class="guide-city" id="weatherCity" aria-label="날씨 지역"></select></div><div class="guide-weather-main" aria-live="polite"><span class="guide-weather-icon" id="weatherIcon">☁️</span><strong id="weatherTemperature">--°</strong><span id="weatherCondition">날씨를 불러오는 중</span></div><p class="guide-weather-detail" id="weatherDetail">기상청 예보를 확인하고 있어요.</p><div class="guide-source"><a id="weatherSource" href="https://www.data.go.kr/data/15084084/openapi.do" target="_blank" rel="noopener noreferrer">출처: 기상청 단기예보 ↗</a><button class="guide-refresh" id="refreshWeather" type="button">↻ 새로고침</button></div></div>
+          <div class="guide-card"><h3>오늘의 코디</h3><p class="guide-recommendation" id="outfitRecommendation">날씨를 확인하면 코디를 추천해 드려요.</p><p class="guide-subtext" id="outfitReason">기온과 비·눈 여부를 참고해요.</p></div>
+          <div class="guide-card"><h3>오늘의 식사</h3><div class="guide-meal"><span class="guide-meal-icon">☀</span><div class="guide-meal-copy"><small>아침</small><strong id="breakfastRecommendation">추천 준비 중</strong></div></div><div class="guide-meal"><span class="guide-meal-icon">✿</span><div class="guide-meal-copy"><small>점심</small><strong id="lunchRecommendation">추천 준비 중</strong></div></div><div class="guide-meal"><span class="guide-meal-icon">☾</span><div class="guide-meal-copy"><small>저녁</small><strong id="dinnerRecommendation">추천 준비 중</strong></div></div><p class="guide-subtext" id="mealReason">계절과 오늘의 날씨를 참고해요.</p></div>
+        </div>
       </aside>
     </main>
+    <section class="screen" id="communityView" hidden aria-labelledby="communityHeading">
+      <div class="screen-head"><div><div class="eyebrow">TOGETHER, ONE DAY AT A TIME</div><h2 id="communityHeading">커뮤니티</h2><p class="screen-intro">오늘의 작은 모험을 한 줄 이야기로 남겨요.</p></div><span class="local-note">이 브라우저에서만 보이는 공간</span></div>
+      <form class="social-card" id="postForm"><h3>이야기 남기기</h3><label for="postText">오늘의 이야기</label><textarea id="postText" maxlength="280" required placeholder="오늘 어떤 작은 모험을 했나요?"></textarea><div class="form-bottom"><select id="postGroup" aria-label="게시할 곳"><option value="">전체 커뮤니티</option></select><button class="social-primary" type="submit">글 올리기</button></div></form>
+      <div class="social-row"><h3>모아본 이야기</h3><select class="social-filter" id="communityFilter" aria-label="이야기 필터"><option value="">전체 이야기</option></select></div>
+      <div id="postList" aria-live="polite"></div>
+    </section>
+    <section class="screen" id="groupsView" hidden aria-labelledby="groupsHeading">
+      <div class="screen-head"><div><div class="eyebrow">GROW TOGETHER</div><h2 id="groupsHeading">그룹</h2><p class="screen-intro">같은 마음으로 모험할 작은 공간을 만들어요.</p></div><span class="local-note">이 브라우저에서만 보이는 그룹</span></div>
+      <div class="social-row"><h3>내 그룹</h3><button type="button" class="social-primary" id="createGroupShortcut">+ 그룹 만들기</button></div><div class="group-grid" id="groupList"></div>
+    </section>
+    <section class="screen" id="createView" hidden aria-labelledby="createHeading">
+      <div class="screen-head"><div><div class="eyebrow">A LITTLE PLACE TO BELONG</div><h2 id="createHeading">그룹 만들기</h2><p class="screen-intro">함께하고 싶은 이야기를 담을 공간에 이름을 지어 주세요.</p></div><span class="local-note">이 브라우저에서만 보이는 그룹</span></div>
+      <form class="social-card" id="groupForm"><div class="form-field"><label for="groupName">그룹 이름</label><input id="groupName" maxlength="30" required placeholder="예: 매일 산책하는 사람들"></div><div class="form-field"><label for="groupDescription">그룹 소개</label><textarea id="groupDescription" maxlength="160" required placeholder="어떤 모험을 함께할 그룹인가요?"></textarea></div><button class="social-primary" type="submit">그룹 만들기</button></form>
+    </section>
+    <section class="screen" id="pointsView" hidden aria-labelledby="pointsHeading">
+      <div class="screen-head"><div><div class="eyebrow">LITTLE REWARDS</div><h2 id="pointsHeading">포인트</h2><p class="screen-intro">오늘의 모험을 모아 작은 보상으로 바꿔요.</p></div></div>
+      <p class="demo-notice">광고 시청과 적립은 체험용입니다. 실제 광고 네트워크와 연결되어 있지 않아요.</p>
+      <div class="points-hero"><div><span>지금 사용할 수 있는 포인트</span><strong><span id="pointsBalance">0</span><small>p</small></strong></div><svg class="hero-clover" viewBox="0 0 120 140" aria-hidden="true"><use href="#glass-clover"/></svg></div>
+      <div class="points-columns"><div class="social-card"><h3>포인트 더 모으기</h3><p class="screen-intro">광고 체험 화면을 끝까지 보면 10p를 받아요.</p><div class="ad-action"><button class="social-primary" id="watchAdButton" type="button">광고 보고 10p 받기</button><span class="ad-count" id="adCount">오늘 0 / 3회</span></div></div><div class="social-card"><h3>내 포인트 내역</h3><div class="point-rule"><span>미션 달성</span><strong id="missionPointTotal">0p</strong></div><div class="point-rule"><span>광고 시청</span><strong id="adPointTotal">0p</strong></div><div class="point-rule"><span>상품권 교환</span><strong id="spentPointTotal">0p</strong></div></div></div>
+    </section>
+    <section class="screen" id="shopView" hidden aria-labelledby="shopHeading">
+      <div class="screen-head"><div><div class="eyebrow">A SMALL GIFT FOR YOU</div><h2 id="shopHeading">포인트샵</h2><p class="screen-intro">모아 둔 포인트로 마음에 드는 상품권을 골라요.</p></div><span class="local-note">사용 가능 <strong id="shopBalance">0p</strong></span></div>
+      <p class="demo-notice">현재 상품권 교환은 체험용 기록입니다. 실제 상품권이나 사용 가능한 코드는 발급되지 않아요.</p>
+      <div class="shop-grid" id="voucherList"></div>
+      <div class="social-row"><h3>교환 내역</h3></div><div class="social-card" id="redemptionList"></div>
+    </section>
     <footer class="bottom"><span>ONE DAY QUEST &nbsp;·&nbsp; 하루 한 번, 나를 위한 모험</span><span>작은 시작이 만드는 좋은 하루</span></footer>
   </div>
   <div class="toast" id="toast" role="status"></div>
+  <div class="auth-modal" id="authModal" hidden>
+    <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="authHeading">
+      <button class="auth-close" id="authClose" type="button" aria-label="닫기">×</button>
+      <h2 id="authHeading">다시 만나서 반가워요</h2><p class="auth-subtitle">나만의 작은 모험을 이어가요.</p>
+      <div class="auth-tabs"><button type="button" id="loginTab" class="active">로그인</button><button type="button" id="signupTab">회원가입</button></div>
+      <form class="auth-form" id="loginForm"><label for="loginEmail">이메일</label><input id="loginEmail" type="email" autocomplete="email" required><label for="loginPassword">비밀번호</label><input id="loginPassword" type="password" autocomplete="current-password" required><button class="auth-submit" type="submit">로그인</button></form>
+      <form class="auth-form" id="signupForm" hidden><label for="signupName">이름</label><input id="signupName" type="text" maxlength="30" autocomplete="name" required><label for="signupEmail">이메일</label><input id="signupEmail" type="email" autocomplete="email" required><label for="signupPassword">비밀번호 (8자 이상)</label><input id="signupPassword" type="password" minlength="8" autocomplete="new-password" required><label for="signupConfirm">비밀번호 확인</label><input id="signupConfirm" type="password" minlength="8" autocomplete="new-password" required><button class="auth-submit" type="submit">바로 회원가입</button></form>
+      <p class="auth-error" id="authError" role="alert"></p><p class="auth-note">이메일 인증 없이 바로 시작할 수 있어요. 계정은 이 브라우저에서만 사용할 수 있습니다.</p>
+    </div>
+  </div>
+  <div class="avatar-modal" id="avatarModal" hidden>
+    <div class="avatar-dialog" role="dialog" aria-modal="true" aria-labelledby="avatarHeading">
+      <button class="auth-close" id="avatarClose" type="button" aria-label="닫기">×</button>
+      <h2 id="avatarHeading">나만의 프로필을 골라요</h2>
+      <p>마음에 드는 아이콘을 선택하면 계정 프로필로 저장돼요.</p>
+      <div class="avatar-options" id="avatarOptions" role="group" aria-label="프로필 아이콘 선택">
+        <button class="avatar-option" type="button" data-avatar="clover" aria-pressed="false"><span aria-hidden="true">🍀</span><small>클로버</small></button>
+        <button class="avatar-option" type="button" data-avatar="butterfly" aria-pressed="false"><span aria-hidden="true">🦋</span><small>나비</small></button>
+        <button class="avatar-option" type="button" data-avatar="heart" aria-pressed="false"><span aria-hidden="true">💚</span><small>하트</small></button>
+        <button class="avatar-option" type="button" data-avatar="flower" aria-pressed="false"><span aria-hidden="true">🌼</span><small>꽃</small></button>
+        <button class="avatar-option" type="button" data-avatar="cloud" aria-pressed="false"><span aria-hidden="true">☁️</span><small>구름</small></button>
+        <button class="avatar-option" type="button" data-avatar="moon" aria-pressed="false"><span aria-hidden="true">🌙</span><small>달</small></button>
+      </div>
+      <button class="avatar-save" id="avatarSave" type="button" disabled>이 아이콘으로 저장하기</button>
+    </div>
+  </div>
+  <div class="reward-modal" id="adModal" hidden><div class="reward-dialog" role="dialog" aria-modal="true" aria-labelledby="adModalHeading"><h2 id="adModalHeading">오늘의 작은 광고</h2><p>화면을 끝까지 보면 포인트를 받을 수 있어요.</p><div class="reward-creative"><svg viewBox="0 0 120 140" aria-hidden="true"><use href="#glass-clover"/></svg></div><div class="reward-timer" id="adTimerText">15초 남았어요</div><div class="reward-actions"><button class="reward-secondary" id="adCancel" type="button">닫기</button><button class="social-primary reward-primary" id="adClaim" type="button" disabled>시청 중…</button></div><p class="auth-note">체험용 광고 · 실제 광고가 아닙니다</p></div></div>
+  <div class="reward-modal" id="redeemModal" hidden><div class="reward-dialog" role="dialog" aria-modal="true" aria-labelledby="redeemHeading"><h2 id="redeemHeading">상품권 교환</h2><p id="redeemDescription">포인트를 사용해 교환 내역을 남길까요?</p><div class="reward-actions"><button class="reward-secondary" id="redeemCancel" type="button">취소</button><button class="social-primary" id="redeemConfirm" type="button">교환하기</button></div><p class="auth-note">실제 상품권은 발급되지 않는 체험 기능입니다.</p></div></div>
   <button class="next-mission" id="nextMission" disabled>
     <span class="next-icon"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 62c-8-5-11-18-7-32C18 15 28 9 41 10c15 1 22 12 21 27-1 14-7 25-17 28l1 7-11-2-8 5Z" fill="#fffef5" stroke="#34342e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 27c-7-7-4-16 3-17 6-1 9 5 6 11 5-6 12-5 13 1 1 7-7 11-16 9Z" fill="#c6ef72" stroke="#34342e" stroke-width="2"/><path d="M46 25c2-8 10-10 14-5 4 5 0 10-6 11 7 1 9 8 4 12-6 4-12-3-11-12Z" fill="#c6ef72" stroke="#34342e" stroke-width="2"/><circle cx="33" cy="42" r="4" fill="#34342e"/><circle cx="49" cy="42" r="4" fill="#34342e"/><circle cx="32" cy="41" r="1.3" fill="#fff"/><circle cx="48" cy="41" r="1.3" fill="#fff"/><path d="M39 49q2 3 4 0M28 38l-5-2m30 2 5-2" fill="none" stroke="#34342e" stroke-width="1.7" stroke-linecap="round"/><path d="M11 20l2-5 2 5 5 2-5 2-2 5-2-5-5-2Zm51 20 1-3 1 3 3 1-3 1-1 3-1-3-3-1Z" fill="#b9df69" stroke="#34342e" stroke-width="1.2"/></svg></span>
     <span id="nextMissionLabel">다음 미션 하기</span>
@@ -195,12 +416,27 @@
       <div class="celebration-kicker">TODAY'S LITTLE ADVENTURE</div><h2 id="celebrationTitle">오늘의 퀘스트 달성!</h2><p>작은 도전을 해낸 오늘의 나에게<br>행운과 박수를 보내요.</p><button class="celebration-close" id="celebrationClose">고마워, 오늘도 해냈어</button>
     </div>
   </div>
+  <script src="weather-cities.js"></script>
   <script>
     const missions = [
       {cat:'마음챙김',title:'평소 가보지 않은 길로<br>산책해 보세요.',desc:'익숙한 하루에 새로운 풍경 한 조각을 더해봐요.',time:'15분',points:20},
       {cat:'다정한 하루',title:'고마운 사람에게<br>먼저 안부를 건네요.',desc:'짧은 한마디가 누군가의 하루를 환하게 만들어요.',time:'5분',points:20},
       {cat:'나를 돌보기',title:'좋아하는 노래 한 곡을<br>끝까지 들어보세요.',desc:'잠시 멈추고 지금 이 순간에 집중해 봐요.',time:'4분',points:15}
     ];
+    const vouchers=[
+      {id:'cafe1000',name:'카페 상품권 1,000원권',description:'따뜻한 음료 한 잔을 떠올리는 작은 선물',cost:100,icon:'☕'},
+      {id:'store2000',name:'편의점 상품권 2,000원권',description:'가까운 곳에서 고르는 소소한 즐거움',cost:180,icon:'🎁'},
+      {id:'book3000',name:'도서 상품권 3,000원권',description:'새로운 이야기를 만나는 시간을 위한 선물',cost:260,icon:'📚'}
+    ];
+    const weatherCities=WEATHER_CITY_GROUPS.flatMap(group=>group.cities.map(city=>city[0]));
+    const weatherCitySelect=document.getElementById('weatherCity');
+    WEATHER_CITY_GROUPS.forEach(group=>{const options=document.createElement('optgroup');options.label=group.region;group.cities.forEach(([id,name])=>{const option=document.createElement('option');option.value=id;option.textContent=name;options.appendChild(option)});weatherCitySelect.appendChild(options)});
+    const mealPools={
+      cold:{breakfast:['단호박죽과 삶은 달걀','따뜻한 오트밀과 바나나','달걀국과 밥','고구마와 따뜻한 우유'],lunch:['소고기뭇국 정식','버섯칼국수','순두부찌개와 밥','따뜻한 우동'],dinner:['닭곰탕과 김치','연어구이와 된장국','두부전골','배추된장국과 밥']},
+      rainy:{breakfast:['따뜻한 계란죽','토스트와 생강차','버섯수프와 빵','누룽지와 달걀'],lunch:['해물칼국수','김치수제비','따뜻한 카레라이스','잔치국수'],dinner:['버섯전골','두부김치와 밥','닭개장','미역국과 달걀말이']},
+      hot:{breakfast:['요거트와 제철 과일','토마토 달걀 샌드위치','바나나 오트밀','시원한 과일과 삶은 달걀'],lunch:['메밀국수와 채소','닭가슴살 냉채','비빔국수','콩국수'],dinner:['연두부와 채소밥','초계국수','생선구이와 오이무침','두부 샐러드와 빵']},
+      mild:{breakfast:['달걀 토스트와 사과','그릭요거트와 견과류','채소 오믈렛과 빵','주먹밥과 과일'],lunch:['버섯비빔밥','연어덮밥','닭고기 샐러드볼','채소볶음밥'],dinner:['된장국과 두부구이','토마토 파스타','고등어구이와 밥','채소카레와 밥']}
+    };
     const quotes = [
       {text:'“위대한 일은 작은 일들이 모여 이루어진다.”',author:'— 빈센트 반 고흐'},
       {text:'“천천히 피어나는 꽃도 자기만의 계절을 알고 있어요.”',author:'— 오늘의 문장'},
@@ -210,24 +446,108 @@
       {text:'“새로운 시작은 아주 작은 용기에서 자라나요.”',author:'— 오늘의 문장'},
       {text:'“나를 돌보는 시간도 소중한 모험이에요.”',author:'— 오늘의 문장'}
     ];
-    const key='oneDayQuest_v1';
-    let state=JSON.parse(localStorage.getItem(key)||'{}');
+    const guestKey='oneDayQuest_v1',accountStorageKey='oneDayQuestAccounts_v1',accountSessionKey='oneDayQuestActiveAccount_v1';
+    let accounts=JSON.parse(localStorage.getItem(accountStorageKey)||'[]');
+    let activeAccount=accounts.find(account=>account.id===sessionStorage.getItem(accountSessionKey))||null;
+    let stateKey=activeAccount?'oneDayQuestState_'+activeAccount.id:guestKey;
+    let state=JSON.parse(localStorage.getItem(stateKey)||'{}');
     const todayKey=()=>new Date().toLocaleDateString('en-CA');
     let today=todayKey();
-    function save(){localStorage.setItem(key,JSON.stringify(state))}
-    function renderMission(){let step=state.missionStep||0,m=missions[state.missionPlan[step]];let done=!!state.missionDone?.[step],last=step===missions.length-1;document.getElementById('category').textContent='오늘의 퀘스트 · '+m.cat;document.getElementById('mission').innerHTML=m.title;document.getElementById('description').textContent=m.desc;document.getElementById('duration').textContent=m.time;document.getElementById('points').textContent=m.points;document.getElementById('missionProgress').textContent=(step+1)+' / 3 미션';let b=document.getElementById('complete');b.innerHTML=done?'<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#glass-clover"/></svg>미션 완료':'퀘스트 완료하기 &nbsp; →';b.classList.toggle('done',done);b.disabled=done;let next=document.getElementById('nextMission');next.disabled=!done||last;document.getElementById('nextMissionLabel').textContent=last?(done?'오늘 미션 완료':'다음 미션 하기'):'다음 미션 하기'}
+    let currentProof=null,proofLoadToken=0,photoDatabasePromise;
+    function save(){localStorage.setItem(stateKey,JSON.stringify(state))}
+    function photoDatabase(){if(!photoDatabasePromise)photoDatabasePromise=new Promise((resolve,reject)=>{if(!window.indexedDB){reject(new Error('사진 저장소를 사용할 수 없어요.'));return}let request=indexedDB.open('oneDayQuestPhotos',1);request.onupgradeneeded=()=>request.result.createObjectStore('photos');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)});return photoDatabasePromise}
+    async function photoStore(action,step,value){let db=await photoDatabase(),photoKey=(activeAccount?activeAccount.id+':':'')+today+':'+step;return new Promise((resolve,reject)=>{let transaction=db.transaction('photos',action==='get'?'readonly':'readwrite'),store=transaction.objectStore('photos'),result;let request=action==='get'?store.get(photoKey):action==='put'?store.put(value,photoKey):store.delete(photoKey);request.onsuccess=()=>result=request.result;transaction.oncomplete=()=>resolve(result);transaction.onerror=()=>reject(transaction.error)})}
+    function showToast(message){let t=document.getElementById('toast');t.textContent=message;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),3000)}
+    function updateProofView(done){let panel=document.getElementById('proofPanel'),preview=document.getElementById('proofPreview');panel.classList.toggle('has-photo',!!currentProof);panel.classList.toggle('locked',done);if(currentProof)preview.src=currentProof;else preview.removeAttribute('src');document.getElementById('proofTitle').textContent=done?(currentProof?'인증샷 인증 완료':'완료한 미션'):currentProof?'인증샷 준비 완료':'인증샷으로 미션 기록하기';document.getElementById('proofDescription').textContent=done?(currentProof?'이 미션의 인증샷이 브라우저에 저장되어 있어요.':'이전에 완료한 미션이에요.'):currentProof?'사진을 확인하고 퀘스트 완료하기를 눌러주세요.':'사진을 올리면 미션을 완료할 수 있어요. 이 브라우저에만 저장돼요.'}
+    async function renderProof(){let step=state.missionStep||0,done=!!state.missionDone?.[step],token=++proofLoadToken;currentProof=null;updateProofView(done);let complete=document.getElementById('complete');complete.disabled=true;try{let photo=await photoStore('get',step);if(token!==proofLoadToken)return;currentProof=photo||null;updateProofView(done)}catch(error){if(token!==proofLoadToken)return;showToast('인증샷 저장소를 열 수 없어요.')}finally{if(token===proofLoadToken)complete.disabled=done}}
+    function compressPhoto(file){return new Promise((resolve,reject)=>{let url=URL.createObjectURL(file),picture=new Image();picture.onload=()=>{try{let scale=Math.min(1,900/Math.max(picture.width,picture.height)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(picture.width*scale));canvas.height=Math.max(1,Math.round(picture.height*scale));let context=canvas.getContext('2d');context.fillStyle='#ffffff';context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(picture,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',.72))}catch(error){reject(error)}finally{URL.revokeObjectURL(url)}};picture.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('사진을 열 수 없어요.'))};picture.src=url})}
+    function renderMission(){let step=state.missionStep||0,m=missions[state.missionPlan[step]];let done=!!state.missionDone?.[step],last=step===missions.length-1;document.getElementById('category').textContent='오늘의 퀘스트 · '+m.cat;document.getElementById('mission').innerHTML=m.title;document.getElementById('description').textContent=m.desc;document.getElementById('duration').textContent=m.time;document.getElementById('points').textContent=m.points;document.getElementById('missionProgress').textContent=(step+1)+' / 3 미션';let b=document.getElementById('complete');b.innerHTML=done?'<svg viewBox="0 0 120 140" aria-hidden="true"><use href="#glass-clover"/></svg>미션 완료':'퀘스트 완료하기 &nbsp; →';b.classList.toggle('done',done);b.disabled=done;let next=document.getElementById('nextMission');next.disabled=!done||last;document.getElementById('nextMissionLabel').textContent=last?(done?'오늘 미션 완료':'다음 미션 하기'):'다음 미션 하기';renderProof()}
     function weekStart(d){let x=new Date(d);let day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);x.setHours(0,0,0,0);return x}
     function render(){let d=new Date();let fmt=new Intl.DateTimeFormat('ko-KR',{month:'long',day:'numeric',weekday:'long'});document.getElementById('dateText').textContent=fmt.format(d);document.getElementById('todayLabel').textContent=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}).toUpperCase()+'  ·  YOUR DAILY ADVENTURE';
       let dayNumber=Math.floor(new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime()/86400000);let quote=quotes[((dayNumber%quotes.length)+quotes.length)%quotes.length];document.getElementById('quoteText').textContent=quote.text;document.getElementById('quoteAuthor').textContent=quote.author;
       let completed=state.completed||{};let streak=0;let cursor=new Date();while((cursor.toLocaleDateString('en-CA')===today?state.dailyComplete?.[today]:(state.dailyComplete?.[cursor.toLocaleDateString('en-CA')]||completed[cursor.toLocaleDateString('en-CA')]))){streak++;cursor.setDate(cursor.getDate()-1)}
-      document.getElementById('streak').textContent=streak;document.getElementById('totalPoints').textContent=Object.values(completed).reduce((a,b)=>a+b,0);
+      document.getElementById('streak').textContent=streak;document.getElementById('totalPoints').textContent=pointTotals().balance;
       let start=weekStart(d), names=['월','화','수','목','금','토','일'], count=0, html='';for(let i=0;i<7;i++){let x=new Date(start);x.setDate(x.getDate()+i);let k=x.toLocaleDateString('en-CA'),done=!!state.dailyComplete?.[k]||(k!==today&&!!completed[k]),isToday=k===today;if(done)count++;let marker=done?'<svg viewBox="0 0 120 140" aria-label="완료"><use href="#glass-clover"/></svg>':x.getDate();html+=`<div class="day ${isToday?'today':''} ${done?'past':''}">${names[i]}<i>${marker}</i></div>`}document.getElementById('week').innerHTML=html;document.getElementById('weekCount').textContent=count+' / 7 완료';renderMission()}
-    document.getElementById('complete').addEventListener('click',()=>{let step=state.missionStep||0;if(state.missionDone?.[step])return;let m=missions[state.missionPlan[step]];state.missionDone=state.missionDone||[];state.missionDone[step]=true;state.completed=state.completed||{};state.completed[today]=(state.completed[today]||0)+m.points;if(step===missions.length-1)state.dailyComplete=Object.assign(state.dailyComplete||{},{[today]:true});save();render();document.getElementById('celebrationTitle').textContent=step===missions.length-1?'오늘의 미션 모두 달성!':'미션 달성!';document.getElementById('celebration').classList.add('show');document.getElementById('celebrationClose').focus()});
+    function makeElement(tag,className,textValue){let node=document.createElement(tag);if(className)node.className=className;if(textValue!==undefined)node.textContent=textValue;return node}
+    function selectOption(value,label){let option=document.createElement('option');option.value=value;option.textContent=label;return option}
+    function pointTotals(){let mission=Object.values(state.completed||{}).reduce((sum,value)=>sum+(Number(value)||0),0),ad=(state.adRewards||[]).reduce((sum,item)=>sum+(Number(item.points)||0),0),spent=(state.redemptions||[]).reduce((sum,item)=>sum+(Number(item.cost)||0),0);return {mission,ad,spent,balance:Math.max(0,mission+ad-spent)}}
+    let dailyWeatherCache=null,weatherRequestToken=0;
+    function koreanDay(){let date=new Date(Date.now()+9*60*60*1000);return {code:`${date.getUTCFullYear()}${String(date.getUTCMonth()+1).padStart(2,'0')}${String(date.getUTCDate()).padStart(2,'0')}`,index:Math.floor(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate())/86400000),month:date.getUTCMonth()+1}}
+    function mealMood(weather){let month=koreanDay().month,condition=weather?.condition||'',temperature=weather?.temperature;if(/비|눈/.test(condition))return 'rainy';if(Number.isFinite(temperature))return temperature<=9?'cold':temperature>=27?'hot':'mild';return month<=2||month>=11?'cold':month>=6&&month<=8?'hot':'mild'}
+    function renderMeals(weather){let mood=mealMood(weather),pool=mealPools[mood],day=koreanDay().index,cityOffset=Math.max(0,weatherCities.indexOf(state.weatherCity||'seoul'));document.getElementById('breakfastRecommendation').textContent=pool.breakfast[(day+cityOffset)%pool.breakfast.length];document.getElementById('lunchRecommendation').textContent=pool.lunch[(day+cityOffset+1)%pool.lunch.length];document.getElementById('dinnerRecommendation').textContent=pool.dinner[(day+cityOffset+2)%pool.dinner.length];document.getElementById('mealReason').textContent=weather?'오늘의 날씨와 계절을 참고했어요.':'날씨 연결 전에는 계절을 참고해요.'}
+    function renderOutfit(weather){let recommendation=document.getElementById('outfitRecommendation'),reason=document.getElementById('outfitReason');if(!weather||!Number.isFinite(weather.temperature)){recommendation.textContent='날씨를 확인하면 코디를 추천해 드려요.';reason.textContent='기온과 비·눈 여부를 참고해요.';return}let temperature=weather.temperature,options=temperature<=0?['패딩과 도톰한 니트','롱패딩과 기모 바지','따뜻한 코트와 목도리']:temperature<=9?['울 코트와 니트','경량 패딩과 긴 바지','도톰한 재킷과 스웨터']:temperature<=16?['가벼운 코트와 긴 소매','카디건과 긴 바지','얇은 재킷과 셔츠']:temperature<=23?['긴 소매 셔츠와 면바지','얇은 카디건과 데님','가벼운 셔츠와 스커트']:['통기성 좋은 반소매와 얇은 바지','린넨 셔츠와 가벼운 하의','시원한 원피스와 얇은 겉옷'];let result=options[koreanDay().index%options.length];if(/눈/.test(weather.condition))result+=' · 미끄럼 방지 신발';else if(/비/.test(weather.condition))result+=' · 우산과 방수 신발';else if(weather.windSpeed>=7)result+=' · 바람막이';recommendation.textContent=result;reason.textContent=`${weather.temperature}℃ · ${weather.condition} 예보에 맞춘 옷차림이에요.`}
+    function displayWeather(weather,error){let icon=document.getElementById('weatherIcon'),temperature=document.getElementById('weatherTemperature'),condition=document.getElementById('weatherCondition'),detail=document.getElementById('weatherDetail');if(!weather){icon.textContent='☁️';temperature.textContent='--°';condition.textContent=error||'날씨를 불러오는 중';detail.textContent='날씨가 연결되면 온도와 코디를 보여드려요.';renderOutfit(null);renderMeals(null);return}icon.textContent=/눈/.test(weather.condition)?'❄️':/비/.test(weather.condition)?'🌧️':weather.condition==='맑음'?'☀️':'⛅';temperature.textContent=Number.isFinite(weather.temperature)?weather.temperature+'°':'--°';condition.textContent=weather.condition;let parts=[];if(Number.isFinite(weather.minimum)&&Number.isFinite(weather.maximum))parts.push(`최저 ${weather.minimum}° / 최고 ${weather.maximum}°`);if(Number.isFinite(weather.precipitationProbability))parts.push(`강수확률 ${weather.precipitationProbability}%`);detail.textContent=parts.join(' · ')+(parts.length?' · ':'')+weather.source+' '+weather.forecastTime.slice(0,2)+'시 기준';let source=document.getElementById('weatherSource');source.href=weather.source==='Open-Meteo'?'https://open-meteo.com/':'https://www.data.go.kr/data/15084084/openapi.do';source.textContent='출처: '+weather.source+' ↗';renderOutfit(weather);renderMeals(weather)}
+    async function fetchOpenMeteo(city){let found=WEATHER_CITY_GROUPS.flatMap(group=>group.cities).find(item=>item[0]===city);if(!found)throw new Error('지원하지 않는 지역이에요.');let url=new URL('https://api.open-meteo.com/v1/forecast');url.searchParams.set('latitude',found[2]);url.searchParams.set('longitude',found[3]);url.searchParams.set('current','temperature_2m,weather_code,wind_speed_10m');url.searchParams.set('daily','temperature_2m_min,temperature_2m_max,precipitation_probability_max');url.searchParams.set('timezone','Asia/Seoul');url.searchParams.set('wind_speed_unit','ms');url.searchParams.set('forecast_days','1');let response=await fetch(url),data=await response.json(),current=data.current,daily=data.daily;if(!response.ok||!Number.isFinite(current?.temperature_2m)||!daily?.time?.[0])throw new Error('날씨를 지금 불러올 수 없어요.');let code=current.weather_code,condition=[71,73,75,77,85,86].includes(code)?'눈':[66,67].includes(code)?'비 또는 눈':[51,53,55,56,57,61,63,65,80,81,82,95,96,99].includes(code)?'비':code===0?'맑음':[1,2].includes(code)?'구름많음':'흐림';return {source:'Open-Meteo',forecastDate:daily.time[0].replaceAll('-',''),forecastTime:current.time.slice(11,16).replace(':',''),condition,temperature:current.temperature_2m,minimum:daily.temperature_2m_min?.[0],maximum:daily.temperature_2m_max?.[0],precipitationProbability:daily.precipitation_probability_max?.[0],windSpeed:current.wind_speed_10m};}
+    async function fetchWeather(city){try{let response=await fetch('/api/weather?city='+encodeURIComponent(city),{cache:'no-store'}),payload=await response.json();if(!response.ok)throw new Error(payload.error||'날씨를 불러오지 못했어요.');return payload}catch(error){return fetchOpenMeteo(city)}}
+    async function loadDailyGuide(force=false){let city=weatherCities.includes(state.weatherCity)?state.weatherCity:'seoul',key=city+':'+koreanDay().code,requestId=++weatherRequestToken;document.getElementById('weatherCity').value=city;if(!force&&dailyWeatherCache?.key===key&&Date.now()-dailyWeatherCache.time<(dailyWeatherCache.weather?30:5)*60*1000){displayWeather(dailyWeatherCache.weather,dailyWeatherCache.error);return}displayWeather(null,'날씨를 불러오는 중');try{let payload=await fetchWeather(city);if(payload.forecastDate!==koreanDay().code)throw new Error('오늘의 날씨 자료를 아직 받지 못했어요.');if(requestId!==weatherRequestToken)return;dailyWeatherCache={key,time:Date.now(),weather:payload,error:null};displayWeather(payload,null)}catch(error){if(requestId!==weatherRequestToken)return;let message=/Failed to fetch|JSON|Unexpected token|fetch failed/i.test(error.message)?'날씨에 연결할 수 없어요.':error.message;dailyWeatherCache={key,time:Date.now(),weather:null,error:message};displayWeather(null,message)}}
+    function adViewsToday(){return (state.adRewards||[]).filter(item=>item.date===today).length}
+    function renderPoints(){let totals=pointTotals(),count=adViewsToday(),button=document.getElementById('watchAdButton');document.getElementById('pointsBalance').textContent=totals.balance;document.getElementById('missionPointTotal').textContent=totals.mission+'p';document.getElementById('adPointTotal').textContent=totals.ad+'p';document.getElementById('spentPointTotal').textContent='-'+totals.spent+'p';document.getElementById('adCount').textContent='오늘 '+count+' / 3회';button.disabled=count>=3;button.textContent=count>=3?'오늘은 모두 시청했어요':'광고 보고 10p 받기'}
+    function renderShop(){let list=document.getElementById('voucherList'),history=document.getElementById('redemptionList'),balance=pointTotals().balance;document.getElementById('shopBalance').textContent=balance+'p';list.replaceChildren();vouchers.forEach(voucher=>{let card=makeElement('article','social-card voucher-card'),art=makeElement('div','voucher-art',voucher.icon),title=makeElement('h3','',voucher.name),description=makeElement('p','',voucher.description),footer=makeElement('div','voucher-card-footer'),cost=makeElement('strong','',voucher.cost+'p'),button=makeElement('button','social-primary','교환하기');button.type='button';button.disabled=balance<voucher.cost;button.addEventListener('click',()=>openRedeem(voucher));footer.append(cost,button);card.append(art,title,description,footer);list.append(card)});history.replaceChildren();let redemptions=Array.isArray(state.redemptions)?state.redemptions:[];if(!redemptions.length){history.append(makeElement('p','screen-intro','아직 교환한 내역이 없어요.'));return}redemptions.slice().reverse().forEach(item=>{let row=makeElement('div','redemption-row'),left=makeElement('strong','',item.title),right=makeElement('span','',new Intl.DateTimeFormat('ko-KR',{month:'numeric',day:'numeric'}).format(new Date(item.createdAt))+' · -'+item.cost+'p');row.append(left,right);history.append(row)})}
+    function renderGroupOptions(){let groups=Array.isArray(state.groups)?state.groups:[],postSelect=document.getElementById('postGroup'),filter=document.getElementById('communityFilter'),postValue=postSelect.value,filterValue=filter.value;postSelect.replaceChildren(selectOption('','전체 커뮤니티'));filter.replaceChildren(selectOption('','전체 이야기'));groups.forEach(group=>{filter.append(selectOption(group.id,group.name));if(group.joined)postSelect.append(selectOption(group.id,group.name))});postSelect.value=groups.some(group=>group.id===postValue&&group.joined)?postValue:'';filter.value=groups.some(group=>group.id===filterValue)?filterValue:''}
+    function renderPosts(){let list=document.getElementById('postList'),filter=document.getElementById('communityFilter').value,posts=Array.isArray(state.communityPosts)?state.communityPosts:[],groups=Array.isArray(state.groups)?state.groups:[];list.replaceChildren();let visible=posts.filter(post=>!filter||post.groupId===filter).sort((a,b)=>b.createdAt-a.createdAt);if(!visible.length){let empty=makeElement('div','empty-state');empty.append(makeElement('strong','',filter?'이 그룹의 첫 이야기를 남겨요':'아직 이야기가 없어요'),document.createTextNode('오늘의 작은 모험을 가장 먼저 나눠 주세요.'));list.append(empty);return}visible.forEach(post=>{let card=makeElement('article','social-card'),meta=makeElement('div','post-meta'),avatar=makeElement('span','post-avatar',activeAccount?(avatarIcons[activeAccount.avatar]||'\u{1F340}'):'\u2618'),author=makeElement('strong','','나'),date=makeElement('time','',new Intl.DateTimeFormat('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(post.createdAt)));meta.append(avatar,author,date);let group=groups.find(item=>item.id===post.groupId);if(group)meta.append(makeElement('span','post-group',group.name));let body=makeElement('p','post-text',post.text),actions=makeElement('div','post-actions'),like=makeElement('button',post.liked?'liked':'',post.liked?'♥ 좋아요 1':'♡ 좋아요 0'),remove=makeElement('button','','삭제');like.type='button';remove.type='button';like.setAttribute('aria-label',post.liked?'좋아요 취소':'좋아요');like.addEventListener('click',()=>{post.liked=!post.liked;save();renderPosts()});remove.addEventListener('click',()=>{state.communityPosts=state.communityPosts.filter(item=>item.id!==post.id);save();renderPosts();showToast('이야기를 삭제했어요.')});actions.append(like,remove);card.append(meta,body,actions);list.append(card)})}
+    function renderGroups(){let list=document.getElementById('groupList'),groups=Array.isArray(state.groups)?state.groups:[];list.replaceChildren();if(!groups.length){let empty=makeElement('div','empty-state');empty.style.gridColumn='1 / -1';empty.append(makeElement('strong','','아직 만든 그룹이 없어요'),document.createTextNode('함께할 작은 공간을 만들어 보세요.'));list.append(empty);return}groups.forEach(group=>{let card=makeElement('article','social-card group-card'),top=makeElement('div','group-card-top'),icon=makeElement('span','group-icon','☘'),title=makeElement('h3','',group.name),description=makeElement('p','',group.description),actions=makeElement('div','group-card-actions'),open=makeElement('button','social-secondary','이야기 보기'),join=makeElement('button','social-link',group.joined?'나가기':'참여하기'),status=makeElement('span','group-status',group.joined?'참여 중':'참여 전');open.type='button';join.type='button';open.addEventListener('click',()=>{setView('community');document.getElementById('communityFilter').value=group.id;renderPosts()});join.addEventListener('click',()=>{group.joined=!group.joined;save();renderGroupOptions();renderGroups();renderPosts();showToast(group.joined?'그룹에 참여했어요.':'그룹에서 나왔어요.')});top.append(icon,title);actions.append(open,join,status);card.append(top,description,actions);list.append(card)})}
+    function renderSocial(){renderGroupOptions();renderGroups();renderPosts()}
+    function setView(view){syncDay();let views={home:'homeView',community:'communityView',groups:'groupsView',create:'createView',points:'pointsView',shop:'shopView'};if(!views[view])view='home';Object.entries(views).forEach(([name,id])=>document.getElementById(id).hidden=name!==view);document.querySelectorAll('.top-nav button').forEach(button=>{if(button.dataset.view===view)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current')});document.getElementById('nextMission').hidden=view!=='home';if(['community','groups','create'].includes(view))renderSocial();if(view==='points')renderPoints();if(view==='shop')renderShop();if(view==='home')loadDailyGuide();window.scrollTo(0,0)}
+    function normalizeDailyPlan(){if(state.day!==today||!Array.isArray(state.missionPlan)||state.missionPlan.length!==missions.length){state.day=today;state.missionPlan=missions.map((_,i)=>i).sort(()=>Math.random()-.5);state.missionStep=0;state.missionDone=[];save()}}
+    function syncDay(){let current=todayKey();if(current!==today){today=current;normalizeDailyPlan();render()}}
+    const avatarIcons={clover:'🍀',butterfly:'🦋',heart:'💚',flower:'🌼',cloud:'☁️',moon:'🌙'};
+    let selectedAvatar=null;
+    function updateAuthHeader(){let signedIn=!!activeAccount;document.getElementById('loginOpen').hidden=signedIn;document.getElementById('signupOpen').hidden=signedIn;document.getElementById('logoutButton').hidden=!signedIn;let name=document.getElementById('accountName');name.hidden=!signedIn;name.textContent=signedIn?activeAccount.name:'';let profile=document.getElementById('profileIcon');profile.textContent=signedIn?(avatarIcons[activeAccount.avatar]||avatarIcons.clover):'🌱';profile.disabled=!signedIn;profile.title=signedIn?'프로필 이미지 바꾸기':'로그인 후 프로필을 선택할 수 있어요.'}
+    function openAvatarPicker(){if(!activeAccount)return;selectedAvatar=avatarIcons[activeAccount.avatar]?activeAccount.avatar:null;document.querySelectorAll('.avatar-option').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.avatar===selectedAvatar)));document.getElementById('avatarSave').disabled=!selectedAvatar;document.getElementById('avatarModal').hidden=false;(document.querySelector('.avatar-option[aria-pressed="true"]')||document.querySelector('.avatar-option')).focus()}
+    function closeAvatarPicker(){document.getElementById('avatarModal').hidden=true;document.getElementById('profileIcon').focus()}
+    function setActiveAccount(account,initialState){activeAccount=account;stateKey=account?'oneDayQuestState_'+account.id:guestKey;if(account)sessionStorage.setItem(accountSessionKey,account.id);else sessionStorage.removeItem(accountSessionKey);state=initialState===undefined?JSON.parse(localStorage.getItem(stateKey)||'{}'):initialState;if(initialState!==undefined)save();normalizeDailyPlan();updateAuthHeader();render();renderSocial();setView('home')}
+    function setAuthMode(mode){let signup=mode==='signup';document.getElementById('loginForm').hidden=signup;document.getElementById('signupForm').hidden=!signup;document.getElementById('loginTab').classList.toggle('active',!signup);document.getElementById('signupTab').classList.toggle('active',signup);document.getElementById('authHeading').textContent=signup?'함께 시작해요':'다시 만나서 반가워요';document.getElementById('authError').textContent='';document.getElementById(signup?'signupName':'loginEmail').focus()}
+    function openAuth(mode){document.getElementById('authModal').hidden=false;setAuthMode(mode)}
+    function closeAuth(){document.getElementById('authModal').hidden=true;document.getElementById('authError').textContent=''}
+    function authError(message){document.getElementById('authError').textContent=message}
+    async function passwordHash(password,saltHex){let salt=Uint8Array.from(saltHex.match(/.{2}/g),part=>parseInt(part,16)),key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']),bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},key,256);return Array.from(new Uint8Array(bits),byte=>byte.toString(16).padStart(2,'0')).join('')}
+    let adRemaining=0,adTimerHandle=null,adLastTick=0,selectedVoucher=null;
+    function updateAdTimer(){let ready=adRemaining<=0,claim=document.getElementById('adClaim');document.getElementById('adTimerText').textContent=ready?'시청 완료! 10p를 받아 주세요.':Math.ceil(adRemaining)+'초 남았어요';claim.disabled=!ready;claim.textContent=ready?'10p 받기':'시청 중…'}
+    function closeAd(){clearInterval(adTimerHandle);adTimerHandle=null;document.getElementById('adModal').hidden=true}
+    function startAd(){syncDay();if(adViewsToday()>=3){showToast('오늘의 광고 보상은 모두 받았어요.');return}adRemaining=15;adLastTick=performance.now();document.getElementById('adModal').hidden=false;updateAdTimer();document.getElementById('adCancel').focus();clearInterval(adTimerHandle);adTimerHandle=setInterval(()=>{let now=performance.now();if(document.hidden){adLastTick=now;return}adRemaining=Math.max(0,adRemaining-(now-adLastTick)/1000);adLastTick=now;updateAdTimer();if(adRemaining<=0){clearInterval(adTimerHandle);adTimerHandle=null}},200)}
+    function openRedeem(voucher){if(pointTotals().balance<voucher.cost){showToast('포인트가 부족해요.');return}selectedVoucher=voucher;document.getElementById('redeemDescription').textContent=voucher.name+'에 '+voucher.cost+'p를 사용할까요? 실제 상품권은 발급되지 않습니다.';document.getElementById('redeemModal').hidden=false;document.getElementById('redeemCancel').focus()}
+    function closeRedeem(){selectedVoucher=null;document.getElementById('redeemModal').hidden=true}
+    document.getElementById('complete').addEventListener('click',()=>{let step=state.missionStep||0;if(state.missionDone?.[step])return;if(!currentProof){showToast('인증샷을 먼저 등록해 주세요.');document.getElementById('proofPicker').focus();return}let m=missions[state.missionPlan[step]];state.missionDone=state.missionDone||[];state.missionDone[step]=true;state.completed=state.completed||{};state.completed[today]=(state.completed[today]||0)+m.points;if(step===missions.length-1)state.dailyComplete=Object.assign(state.dailyComplete||{},{[today]:true});save();render();document.getElementById('celebrationTitle').textContent=step===missions.length-1?'오늘의 미션 모두 달성!':'미션 달성!';document.getElementById('celebration').classList.add('show');document.getElementById('celebrationClose').focus()});
     document.getElementById('celebrationClose').addEventListener('click',()=>document.getElementById('celebration').classList.remove('show'));
     document.getElementById('celebration').addEventListener('click',e=>{if(e.target.id==='celebration')e.currentTarget.classList.remove('show')});
     document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('celebration').classList.remove('show')});
     document.getElementById('nextMission').addEventListener('click',()=>{let step=state.missionStep||0;if(state.missionDone?.[step]&&step<missions.length-1){state.missionStep=step+1;save();renderMission()}});
-    if(state.day!==today){state.day=today;state.missionPlan=missions.map((_,i)=>i).sort(()=>Math.random()-.5);state.missionStep=0;state.missionDone=[];save()}else if(!Array.isArray(state.missionPlan)||state.missionPlan.length!==missions.length){state.missionPlan=missions.map((_,i)=>i).sort(()=>Math.random()-.5);state.missionStep=0;state.missionDone=[];save()}render();
+    document.getElementById('proofPicker').addEventListener('click',()=>document.getElementById('proofInput').click());
+    document.getElementById('proofInput').addEventListener('change',async event=>{let file=event.target.files?.[0];event.target.value='';if(!file)return;if(!file.type.startsWith('image/')){showToast('이미지 파일을 선택해 주세요.');return}if(file.size>20*1024*1024){showToast('20MB 이하 사진을 선택해 주세요.');return}let step=state.missionStep||0;if(state.missionDone?.[step])return;let button=document.getElementById('proofPicker');button.disabled=true;try{let photo=await compressPhoto(file);await photoStore('put',step,photo);if(step===(state.missionStep||0)){currentProof=photo;updateProofView(false);showToast('인증샷을 등록했어요.')}}catch(error){showToast('사진을 저장하지 못했어요. 다른 사진을 선택해 주세요.')}finally{button.disabled=false}});
+    document.getElementById('proofRemove').addEventListener('click',async()=>{let step=state.missionStep||0;if(state.missionDone?.[step])return;try{await photoStore('delete',step);currentProof=null;updateProofView(false);showToast('인증샷을 삭제했어요.')}catch(error){showToast('인증샷을 삭제하지 못했어요.')}});
+    document.getElementById('homeNav').addEventListener('click',()=>setView('home'));
+    document.querySelectorAll('.top-nav button').forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));
+    document.getElementById('createGroupShortcut').addEventListener('click',()=>setView('create'));
+    document.getElementById('communityFilter').addEventListener('change',renderPosts);
+    document.getElementById('postForm').addEventListener('submit',event=>{event.preventDefault();let input=document.getElementById('postText'),textValue=input.value.trim(),groupId=document.getElementById('postGroup').value;if(!textValue){input.focus();return}state.communityPosts=Array.isArray(state.communityPosts)?state.communityPosts:[];state.communityPosts.push({id:Date.now()+'-'+Math.random().toString(36).slice(2),text:textValue,groupId,liked:false,createdAt:Date.now()});save();input.value='';renderPosts();showToast('이야기를 올렸어요.')});
+    document.getElementById('groupForm').addEventListener('submit',event=>{event.preventDefault();let nameInput=document.getElementById('groupName'),descriptionInput=document.getElementById('groupDescription'),name=nameInput.value.trim(),description=descriptionInput.value.trim();if(!name||!description){(!name?nameInput:descriptionInput).focus();return}state.groups=Array.isArray(state.groups)?state.groups:[];if(state.groups.some(group=>group.name.toLocaleLowerCase()===name.toLocaleLowerCase())){showToast('같은 이름의 그룹이 이미 있어요.');nameInput.focus();return}state.groups.push({id:Date.now()+'-'+Math.random().toString(36).slice(2),name,description,joined:true});save();event.target.reset();setView('groups');showToast('그룹을 만들었어요.')});
+    document.getElementById('weatherCity').addEventListener('change',event=>{state.weatherCity=event.target.value;save();loadDailyGuide(true)});
+    document.getElementById('refreshWeather').addEventListener('click',()=>loadDailyGuide(true));
+    document.getElementById('loginOpen').addEventListener('click',()=>openAuth('login'));
+    document.getElementById('signupOpen').addEventListener('click',()=>openAuth('signup'));
+    document.getElementById('loginTab').addEventListener('click',()=>setAuthMode('login'));
+    document.getElementById('signupTab').addEventListener('click',()=>setAuthMode('signup'));
+    document.getElementById('authClose').addEventListener('click',closeAuth);
+    document.getElementById('authModal').addEventListener('click',event=>{if(event.target.id==='authModal')closeAuth()});
+    document.getElementById('profileIcon').addEventListener('click',openAvatarPicker);
+    document.querySelectorAll('.avatar-option').forEach(button=>button.addEventListener('click',()=>{selectedAvatar=button.dataset.avatar;document.querySelectorAll('.avatar-option').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));document.getElementById('avatarSave').disabled=false}));
+    document.getElementById('avatarSave').addEventListener('click',()=>{if(!activeAccount||!avatarIcons[selectedAvatar])return;activeAccount.avatar=selectedAvatar;localStorage.setItem(accountStorageKey,JSON.stringify(accounts));updateAuthHeader();renderPosts();closeAvatarPicker();showToast('프로필 아이콘이 저장됐어요.')});
+    document.getElementById('avatarClose').addEventListener('click',closeAvatarPicker);
+    document.getElementById('avatarModal').addEventListener('click',event=>{if(event.target.id==='avatarModal')closeAvatarPicker()});
+    document.getElementById('logoutButton').addEventListener('click',()=>{setActiveAccount(null);showToast('로그아웃했어요.')});
+    document.getElementById('loginForm').addEventListener('submit',async event=>{event.preventDefault();let email=document.getElementById('loginEmail').value.trim().toLowerCase(),password=document.getElementById('loginPassword').value,account=accounts.find(item=>item.email===email),button=event.target.querySelector('.auth-submit');button.disabled=true;try{if(!account||await passwordHash(password,account.salt)!==account.hash){authError('이메일 또는 비밀번호를 확인해 주세요.');return}setActiveAccount(account);closeAuth();event.target.reset();showToast(account.name+'님, 다시 오신 걸 환영해요.')}catch(error){authError('이 브라우저에서 로그인할 수 없어요.')}finally{button.disabled=false}});
+    document.getElementById('signupForm').addEventListener('submit',async event=>{event.preventDefault();let name=document.getElementById('signupName').value.trim(),email=document.getElementById('signupEmail').value.trim().toLowerCase(),password=document.getElementById('signupPassword').value,confirm=document.getElementById('signupConfirm').value,button=event.target.querySelector('.auth-submit');if(!name){authError('이름을 입력해 주세요.');return}if(accounts.some(item=>item.email===email)){authError('이미 이 브라우저에 가입된 이메일이에요.');return}if(password.length<8){authError('비밀번호는 8자 이상으로 입력해 주세요.');return}if(password!==confirm){authError('비밀번호가 서로 달라요.');return}button.disabled=true;try{let firstAccount=accounts.length===0,guestState=firstAccount?JSON.parse(JSON.stringify(state)):{},guestPhotos=[];if(firstAccount)for(let step=0;step<missions.length;step++){try{guestPhotos[step]=await photoStore('get',step)}catch(error){guestPhotos[step]=null}}let salt=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join(''),account={id:Date.now()+'-'+Math.random().toString(36).slice(2),name,email,salt,hash:await passwordHash(password,salt)};accounts.push(account);localStorage.setItem(accountStorageKey,JSON.stringify(accounts));setActiveAccount(account,guestState);for(let step=0;step<guestPhotos.length;step++)if(guestPhotos[step])try{await photoStore('put',step,guestPhotos[step])}catch(error){showToast('일부 인증샷을 가져오지 못했어요.')}renderProof();closeAuth();event.target.reset();openAvatarPicker();showToast('회원가입이 완료됐어요. 프로필 아이콘을 골라 주세요.')}catch(error){authError('계정을 만들지 못했어요. 브라우저 저장 공간을 확인해 주세요.')}finally{button.disabled=false}});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(!document.getElementById('avatarModal').hidden)closeAvatarPicker();else if(!document.getElementById('authModal').hidden)closeAuth()}});
+    document.getElementById('watchAdButton').addEventListener('click',startAd);
+    document.getElementById('adCancel').addEventListener('click',closeAd);
+    document.getElementById('adModal').addEventListener('click',event=>{if(event.target.id==='adModal')closeAd()});
+    document.addEventListener('visibilitychange',()=>{adLastTick=performance.now()});
+    document.getElementById('adClaim').addEventListener('click',()=>{if(document.getElementById('adModal').hidden||adRemaining>0)return;syncDay();if(adViewsToday()>=3){closeAd();showToast('오늘의 광고 보상은 모두 받았어요.');return}state.adRewards=Array.isArray(state.adRewards)?state.adRewards:[];state.adRewards.push({id:Date.now(),date:today,points:10});save();closeAd();render();renderPoints();renderShop();showToast('광고 체험 보상 10p를 받았어요.')});
+    document.getElementById('redeemCancel').addEventListener('click',closeRedeem);
+    document.getElementById('redeemModal').addEventListener('click',event=>{if(event.target.id==='redeemModal')closeRedeem()});
+    document.getElementById('redeemConfirm').addEventListener('click',()=>{let voucher=selectedVoucher;if(!voucher)return;if(pointTotals().balance<voucher.cost){closeRedeem();showToast('포인트가 부족해요.');return}state.redemptions=Array.isArray(state.redemptions)?state.redemptions:[];state.redemptions.push({id:Date.now(),title:voucher.name,cost:voucher.cost,createdAt:Date.now()});save();closeRedeem();render();renderPoints();renderShop();showToast('교환 내역에 기록했어요. (체험용)')});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'){if(!document.getElementById('adModal').hidden)closeAd();if(!document.getElementById('redeemModal').hidden)closeRedeem()}});
+    normalizeDailyPlan();updateAuthHeader();render();loadDailyGuide();
   </script>
 </body>
 </html>
